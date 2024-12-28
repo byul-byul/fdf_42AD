@@ -6,14 +6,14 @@
 #    By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 12:10:48 by bhajili           #+#    #+#              #
-#    Updated: 2024/12/28 13:21:21 by bhajili          ###   ########.fr        #
+#    Updated: 2024/12/28 14:13:01 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    =   fdf
 
-D_HDR   =   ./
-D_SRC   =   ./srcs
+D_HDR   =   ./incl/
+D_SRC   =   ./srcs/
 
 CC      =   cc
 CFLAGS  =   -Wall -Wextra -Werror
@@ -28,19 +28,23 @@ OBJS    =   $(SRCS:.c=.o)
 all:    $(NAME)
 
 # linking with dependencies on object files
-$(NAME): $(OBJS) libft/libft.a
-	$(CC) -o $@ $^ -Llibft -lft
+$(NAME): $(OBJS) libft/libft.a minilibx/libmlx.a
+	$(CC) -o $@ $^ -Llibft -lft  -Lminilibx -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
 
 # Library rule to build libft if needed
+minilibx/libmlx.a:
+	make -C minilibx
+
 libft/libft.a:
 	make -C libft
 
 clean:
 	rm -f $(OBJS)
 	make -C libft clean
+	make -C minilibx clean
 
 fclean: clean
-	rm -f libft/libft.a $(NAME)
+	rm -f libft/libft.a minilibx/libmlx.a $(NAME)
 
 re: fclean all
 

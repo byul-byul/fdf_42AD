@@ -6,13 +6,13 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:08:42 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/28 12:45:48 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/28 13:58:53 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../incl/fdf.h"
 
-void	do_fdf(char *path)
+static void	do_fdf(char *path)
 {
 	void	*mlx;
 	void	*mlx_win;

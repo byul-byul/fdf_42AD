@@ -6,11 +6,11 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:16:23 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/28 12:39:45 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/28 13:24:55 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../incl/fdf.h"
 
 
 int	is_valid_arg(int ac, char **av)
