@@ -6,11 +6,28 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 21:18:25 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/30 08:52:01 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/30 15:21:26 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+void	free_int_arr(int **arr, int size)
+{
+	int	i;
+
+	i = -1;
+	if (!arr)
+		return ;
+	while (++i < size)
+		if (arr[i])
+		{
+			free(arr[i]);
+			arr[i] = NULL;
+		}
+	free(arr);
+	arr = NULL;
+}
 
 void	print_error(int error_code)
 {

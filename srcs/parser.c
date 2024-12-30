@@ -6,84 +6,61 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/30 09:03:32 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/30 17:20:59 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-static void	clean_map(int **arr, int size)
+static int	get_row_size(char *row)
 {
+	int	size;
+
+	size = 0;
+	while (*row && *row != '\n')
+	{
+		while (ft_isspace(*row))
+			row++;
+		if (*row == '-' || *row == '+')
+			row++;
+		while (ft_isdigit(*row))
+			row++;
+		if (ft_isdigit(*(row - 1)))
+			size++;
+		if (ft_isspace(*row) || ft_isdigit(*row) \
+			|| *row == '-' || *row == '+' \
+			|| *row == '\n' || *row == '\0')
+			continue;
+		else
+			return (0);
+	}
+	return (size);
+}
+
+static int	parse_map_row(int **map_row, char *row)
+{
+	int	row_size;
 	int	i;
 
 	i = -1;
-	if (!arr)
-		return ;
-	while (++i < size)
-		if (arr[i])
+	row_size = get_row_size(row);
+	*map_row = (int *)malloc(sizeof(int) * row_size);
+	if (!(*map_row))
+		return (0);
+	if (row_size)
+	{
+		while (++i < row_size)
 		{
-			free(arr[i]);
-			arr[i] = NULL;
+			(*map_row)[i] = ft_atoi(row);
+			while (ft_isspace(*row))
+				row++;
+			if (*row == '-' || *row == '+')
+				row++;
+			while (ft_isdigit(*row))
+				row++;
 		}
-	free(arr);
-	arr = NULL;
-}
-
-//static int	get_col_count(char *row)
-//{
-//	int	count;
-
-//	count = 0;
-//	while (*row && *row != '\n' && (ft_isspace(*row) || ft_isdigit(*row)))
-//	{
-//		while (ft_isspace(*row))
-//			row++;
-//		if (*row == '-' || *row == '+')
-//			row++;
-//		while (ft_isdigit(*row))
-//			row++;
-//		if (ft_isdigit(*(row - 1)))
-//			count++;
-//	}
-//	return (count);
-//}
-
-//static int	parse_map_row(int *map_row, char *row)
-//{
-//	int	i;
-//	int	col_count;
-
-//	i = -1;
-//	col_count = 0;
-//	if (!row)
-//		return (0);
-//	col_count = get_col_count(row);
-//	if (col_count <= 0)
-//		return (0);
-//	map_row = (int *)malloc(sizeof(int) * col_count);
-//	if (map_row)
-//	{
-//		while (++i < col_count)
-//		{
-//			map_row[i] = ft_atoi(row);
-//			while (ft_isspace(*row))
-//				row++;
-//			if (*row == '-' || *row == '+')
-//				row++;
-//			while (ft_isdigit(*row))
-//				row++;
-//		}
-//		return (col_count);
-//	}
-//	return (0);
-//}
-static int	parse_map_row(t_fdf *fdf, char *row, int i)
-{
-	fdf += 0;
-	row += 0;
-	i += 0;
-	ft_printf("row was parsed.\n");
-	return (1);
+	}
+	return (row_size);
 }
 
 static int	parse_map(t_fdf *fdf, int fd)
@@ -100,18 +77,18 @@ static int	parse_map(t_fdf *fdf, int fd)
 		line = get_next_line(fd);
 		if (line)
 		{
-			if (parse_map_row(fdf, line, i))
+			if (parse_map_row(&(fdf->map.map[i]), line))
 			{
 				free(line);
 				continue ;
 			}
-			return (free(line), clean_map(fdf->map.map, i), fdf->error = 5, 0);
+			return (free(line), free_int_arr(fdf->map.map, i), fdf->error = 5, 0);
 		}
 	}
 	return (1);
 }
 
-static int	get_row_count(t_fdf *fdf, int fd)
+static int	set_row_count(t_fdf *fdf, int fd)
 {
 	char	*line;
 
@@ -144,7 +121,7 @@ int	parse_arg(t_fdf *fdf, char *arg)
 	fd = open(arg, O_RDONLY);
 	if (fd < 0)
 		return (fdf->error = 3, 0);
-	if (get_row_count(fdf, fd))
+	if (set_row_count(fdf, fd))
 	{
 		close(fd);
 		fd = open(arg, O_RDONLY);
