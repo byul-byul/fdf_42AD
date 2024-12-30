@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validator.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/28 12:16:23 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/28 13:24:55 by bhajili          ###   ########.fr       */
+/*   Created: 2024/12/29 21:18:25 by bhajili           #+#    #+#             */
+/*   Updated: 2024/12/30 08:52:01 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-
-int	is_valid_arg(int ac, char **av)
+void	print_error(int error_code)
 {
-	if (ac != 2)
-		return (ft_printf("Error: invalid arg count\n"), 0);
-	if (NULL == av[1])
-		return (ft_printf("Error: please provide a map-file\n"), 0);
-	if (NULL == av[1])
-		return (ft_printf("Error: please provide a map-file\n"), 0);
-	if (ft_strlen(ft_strstr(av[1], FILE_EXT)) != ft_strlen(FILE_EXT))
-		return (ft_printf("Error: invalid file extension ('file.fdf')\n"), 0);
-	return (1);
+	if (error_code == 1)
+		ft_printf(ERR_MSG_01);
+	else if (error_code == 2)
+		ft_printf(ERR_MSG_02);
+	else if (error_code == 3)
+		ft_printf(ERR_MSG_03);
+	else if (error_code == 4)
+		ft_printf(ERR_MSG_04);
+	else if (error_code == 5)
+		ft_printf(ERR_MSG_05);
+	else if (error_code == 6)
+		ft_printf(ERR_MSG_06);
 }

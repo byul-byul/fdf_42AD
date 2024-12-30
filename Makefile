@@ -6,7 +6,7 @@
 #    By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 12:10:48 by bhajili           #+#    #+#              #
-#    Updated: 2024/12/28 14:13:01 by bhajili          ###   ########.fr        #
+#    Updated: 2024/12/29 21:18:56 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ CC      =   cc
 CFLAGS  =   -Wall -Wextra -Werror
 
 SRCS    =   $(D_SRC)main.c \
-            $(D_SRC)fdf.c \
-			$(D_SRC)validator.c
+            $(D_SRC)parser.c \
+			$(D_SRC)utils.c
 
 OBJS    =   $(SRCS:.c=.o)
 
@@ -31,10 +31,11 @@ all:    $(NAME)
 $(NAME): $(OBJS) libft/libft.a minilibx/libmlx.a
 	$(CC) -o $@ $^ -Llibft -lft  -Lminilibx -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
 
-# Library rule to build libft if needed
+# Library rule to build minilibx if needed
 minilibx/libmlx.a:
 	make -C minilibx
 
+# Library rule to build libft if needed
 libft/libft.a:
 	make -C libft
 

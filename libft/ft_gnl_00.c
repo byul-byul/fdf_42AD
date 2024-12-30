@@ -6,11 +6,35 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 23:09:49 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/26 13:15:41 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/28 20:03:03 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static char	*ft_strjoin2(const char *s1, const char *s2)
+{
+	int		i;
+	int		j;
+	int		s1_len;
+	int		s2_len;
+	char	*res;
+
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	res = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (j < s1_len)
+		res[i++] = s1[j++];
+	j = 0;
+	while (j < s2_len)
+		res[i++] = s2[j++];
+	res[i] = '\0';
+	return (res);
+}
 
 static void	clean_buff(char **buff)
 {
@@ -68,7 +92,7 @@ static char	*read_next_line(char *line, int fd)
 		{
 			buff[read_bytes] = '\0';
 			tmp = line;
-			line = ft_strjoin(line, buff);
+			line = ft_strjoin2(line, buff);
 			free(tmp);
 		}
 	}
