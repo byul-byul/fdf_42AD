@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/30 17:20:59 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/31 20:06:52 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,28 @@ static int	get_row_size(char *row)
 	return (size);
 }
 
-static int	parse_map_row(int **map_row, char *row)
+static int	parse_map_row(t_row	*map_row, char *row)
 {
-	int	row_size;
 	int	i;
 
 	i = -1;
-	row_size = get_row_size(row);
-	*map_row = (int *)malloc(sizeof(int) * row_size);
-	if (!(*map_row))
+	map_row->row_size = get_row_size(row);
+	if (map_row->row_size == 0)
 		return (0);
-	if (row_size)
+	map_row->row = (int *)malloc(sizeof(int) * map_row->row_size);
+	if (!(map_row->row))
+		return (0);
+	while (++i < map_row->row_size)
 	{
-		while (++i < row_size)
-		{
-			(*map_row)[i] = ft_atoi(row);
-			while (ft_isspace(*row))
-				row++;
-			if (*row == '-' || *row == '+')
-				row++;
-			while (ft_isdigit(*row))
-				row++;
-		}
+		map_row->row[i] = ft_atoi(row);
+		while (ft_isspace(*row))
+			row++;
+		if (*row == '-' || *row == '+')
+			row++;
+		while (ft_isdigit(*row))
+			row++;
 	}
-	return (row_size);
+	return (map_row->row_size);
 }
 
 static int	parse_map(t_fdf *fdf, int fd)
@@ -69,20 +67,20 @@ static int	parse_map(t_fdf *fdf, int fd)
 	char	*line;
 
 	i = -1;
-	fdf->map.map = (int **)malloc(sizeof(int *) * fdf->map.row_count);
-	if (!(fdf->map.map))
+	fdf->map.rows = (t_row *)malloc(sizeof(t_row) * fdf->map.row_count);
+	if (!(fdf->map.rows))
 		return (fdf->error = 3, 0);
 	while (++i < fdf->map.row_count)
 	{
 		line = get_next_line(fd);
 		if (line)
 		{
-			if (parse_map_row(&(fdf->map.map[i]), line))
+			if (parse_map_row(&(fdf->map.rows[i]), line))
 			{
 				free(line);
 				continue ;
 			}
-			return (free(line), free_int_arr(fdf->map.map, i), fdf->error = 5, 0);
+			return (free(line), free_int_arr(&fdf->map.rows, i), fdf->error = 5, 0);
 		}
 	}
 	return (1);

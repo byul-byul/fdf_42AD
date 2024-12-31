@@ -6,13 +6,13 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 21:18:25 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/30 15:21:26 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/31 20:20:53 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-void	free_int_arr(int **arr, int size)
+void	free_int_arr(t_row **arr, int size)
 {
 	int	i;
 
@@ -20,11 +20,13 @@ void	free_int_arr(int **arr, int size)
 	if (!arr)
 		return ;
 	while (++i < size)
+	{
 		if (arr[i])
 		{
 			free(arr[i]);
 			arr[i] = NULL;
 		}
+	}
 	free(arr);
 	arr = NULL;
 }

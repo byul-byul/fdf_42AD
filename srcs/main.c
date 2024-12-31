@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:49:39 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/30 17:13:04 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/31 20:11:04 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,16 @@
 static int	do_fdf(t_fdf *fdf, char *path)
 {
 	path += 0;
-	fdf+= 0;
-	//int	i = -1;
-	//int j;
+	fdf += 0;
+	int	i = -1;
+	int j;
+	while (++i < fdf->map.row_count)
+	{
+		j = -1;
+		while (++j < fdf->map.rows[i].row_size)
+			ft_printf("%d, ", fdf->map.rows[i].row[j]);
+		ft_printf("\n");
+	}
 	ft_printf("do_fdf() execution.\n");
 	//while (++i < fdf->map.row_count)
 	//{

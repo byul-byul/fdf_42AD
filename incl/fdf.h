@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/30 17:10:48 by bhajili          ###   ########.fr       */
+/*   Updated: 2024/12/31 20:07:32 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ typedef struct s_img
 	int		**map;
 }				t_img;
 
-//typedef struct s_mrow
-//{
-//	int	*row;
-//	int	row_size;
-//}				t_mrow;
+typedef struct s_row
+{
+	int	*row;
+	int	row_size;
+}				t_row;
 
 typedef struct s_map
 {
-	int		**map;
+	t_row	*rows;
 	int		row_count;	
 }				t_map;
 
@@ -59,6 +59,6 @@ typedef struct s_fdf
 
 int		parse_arg(t_fdf *fdf, char *arg);
 void	print_error(int error_code);
-void	free_int_arr(int **arr, int size);
+void	free_int_arr(t_row **arr, int size);
 
 #endif
