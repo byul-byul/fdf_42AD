@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/31 20:07:32 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/01 20:42:42 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@
 # define ERR_MSG_02	"ERROR: invalid file extension (Usage: ./fdf map.fdf).\n"
 # define ERR_MSG_03	"ERROR: invalid file or file does not exist.\n"
 # define ERR_MSG_04	"ERROR: invalid map: empty lines are not allowed.\n"
-# define ERR_MSG_05	"ERROR: invalid map: failed to parse map.\n"
-# define ERR_MSG_06	"ERROR: invalid map: failed to read map from file.\n"
+# define ERR_MSG_05	"ERROR: invalid map: map is empty.\n"
+# define ERR_MSG_06	"ERROR: invalid map: failed to parse map.\n"
+# define ERR_MSG_07	"ERROR: invalid map: failed to read map from file.\n"
+# define ERR_MSG_08	"ERROR: invalid map: all rows should have same size.\n"
+# define ERR_MSG_09	"ERROR: malloc() failed.\n"
 
 typedef struct s_img
 {
@@ -59,6 +62,6 @@ typedef struct s_fdf
 
 int		parse_arg(t_fdf *fdf, char *arg);
 void	print_error(int error_code);
-void	free_int_arr(t_row **arr, int size);
+void	clean_rows(t_row *rows, int size);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:49:39 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/31 20:11:04 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/01 20:44:33 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ static int	do_fdf(t_fdf *fdf, char *path)
 		ft_printf("\n");
 	}
 	ft_printf("do_fdf() execution.\n");
-	//while (++i < fdf->map.row_count)
-	//{
-	//	fdf->map.map[i]
-	//}
 	return (1);
 }
 
@@ -42,14 +38,29 @@ static int	is_valid_arg(t_fdf *fdf, int ac, char **av)
 	return (1);
 }
 
+static int	check_row_sizes(t_fdf *fdf)
+{
+	int		i;
+	int		size;
+
+	i = 0;
+	size = fdf->map.rows[0].row_size;
+	while (++i < fdf->map.row_count)
+		if (fdf->map.rows[0].row_size != fdf->map.rows[i].row_size)
+			return (clean_rows(fdf->map.rows, fdf->map.row_count), \
+					fdf->error = 8, 0);
+	return (1);
+}
+
 static void	fdf(int ac, char **av)
 {
 	t_fdf	fdf;
 
 	if (is_valid_arg(&fdf, ac, av))
 		if (parse_arg(&fdf, av[1]))
-			if (do_fdf(&fdf, av[1]))
-				return ;
+			if (check_row_sizes(&fdf))
+				if (do_fdf(&fdf, av[1]))
+					return ;
 	print_error(fdf.error);
 }
 
