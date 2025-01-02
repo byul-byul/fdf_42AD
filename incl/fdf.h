@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/01 20:42:42 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/02 13:07:54 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # include <fcntl.h>
 
 # define FILE_EXT	".fdf"
+
+# define WIN_WIDTH	1080
+# define WIN_HEIGHT	720
+
+# define ISO_ANGLE	30
+# define SCALE		30
 
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
 # define ERR_MSG_02	"ERROR: invalid file extension (Usage: ./fdf map.fdf).\n"
@@ -38,8 +44,14 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		**map;
 }				t_img;
+
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	t_img	img;
+}				t_mlx;
 
 typedef struct s_row
 {
@@ -55,7 +67,7 @@ typedef struct s_map
 
 typedef struct s_fdf
 {
-	t_img	img;
+	t_mlx	mlx;
 	t_map	map;
 	int		error;
 }				t_fdf;
