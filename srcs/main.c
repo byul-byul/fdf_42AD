@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:49:39 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/02 13:49:54 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/02 16:19:57 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ static void	draw_fdf(t_fdf fdf)
 			transform_to_2D(x + 1, y, fdf.map.rows[y].row[x + 1], &screenX2, &screenY2);
 			// my_mlx_pixel_put(&fdf.mlx.img, screenX, screenY, 0x00FF0000);
 			my_mlx_line(&fdf.mlx.img, screenX1, screenY1, screenX2, screenY2, 0x00FFFFFF);
+			// mlx_line(&fdf.mlx.mlx, &fdf.mlx.win, screenX1, screenY1, screenX2, screenY2, 0x00FFFFFF);
 			transform_to_2D(x, y + 1, fdf.map.rows[y + 1].row[x], &screenX2, &screenY2);
 			my_mlx_line(&fdf.mlx.img, screenX1, screenY1, screenX2, screenY2, 0x00FF0000);
+			// mlx_line(&fdf.mlx.mlx, &fdf.mlx.win, screenX1, screenY1, screenX2, screenY2, 0x00FFFFFF);
 		}
 	}
 }
