@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:49:39 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/01 20:44:33 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/02 11:30:19 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 static int	do_fdf(t_fdf *fdf, char *path)
 {
+	int	i;
+	int	j;
+
 	path += 0;
 	fdf += 0;
-	int	i = -1;
-	int j;
+	i = -1;
 	while (++i < fdf->map.row_count)
 	{
 		j = -1;
@@ -29,26 +31,24 @@ static int	do_fdf(t_fdf *fdf, char *path)
 	return (1);
 }
 
+static int	check_row_sizes(t_fdf *fdf)
+{
+	int		i;
+
+	i = 0;
+	while (++i < fdf->map.row_count)
+		if (fdf->map.rows[0].row_size != fdf->map.rows[i].row_size)
+			return (clean_rows(fdf->map.rows, fdf->map.row_count), \
+					fdf->error = 8, 0);
+	return (1);
+}
+
 static int	is_valid_arg(t_fdf *fdf, int ac, char **av)
 {
 	if (ac != 2)
 		return (fdf->error = 1, 0);
 	if (ft_strlen(ft_strstr(av[1], FILE_EXT)) != ft_strlen(FILE_EXT))
 		return (fdf->error = 2, 0);
-	return (1);
-}
-
-static int	check_row_sizes(t_fdf *fdf)
-{
-	int		i;
-	int		size;
-
-	i = 0;
-	size = fdf->map.rows[0].row_size;
-	while (++i < fdf->map.row_count)
-		if (fdf->map.rows[0].row_size != fdf->map.rows[i].row_size)
-			return (clean_rows(fdf->map.rows, fdf->map.row_count), \
-					fdf->error = 8, 0);
 	return (1);
 }
 
