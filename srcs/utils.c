@@ -6,16 +6,16 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 21:18:25 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 19:43:42 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 22:11:02 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-void	convert_3D_to_2D(int x, int y, int z, int *screen_x, int *screen_y, int scale)
+void	convert_3D_to_2D(int x, int y, int z, int *screen_x, int *screen_y, int scale, int angle)
 {
-	*screen_x = OFFSET_X + scale * ((x - y) * cos(ISO_ANGLE));
-	*screen_y = OFFSET_Y + scale * ((x + y) * sin(ISO_ANGLE) - z);
+	*screen_x = OFFSET_X + scale * ((x - y) * cos(angle));
+	*screen_y = OFFSET_Y + scale * ((x + y) * sin(angle) - z);
 }
 
 void	clean_rows(t_row *rows, int size)

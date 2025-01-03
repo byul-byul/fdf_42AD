@@ -61,14 +61,14 @@ static void	draw_fdf_on_image(t_img *image, t_map map)
 		{
 			if (x < map.rows[y].row_size - 1)
 			{
-				convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y, map.scale);
-				convert_3D_to_2D(x + 1, y, map.rows[y].row[x + 1], &screen_x1, &screen_y1, map.scale);
+				convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y, map.scale, map.angle);
+				convert_3D_to_2D(x + 1, y, map.rows[y].row[x + 1], &screen_x1, &screen_y1, map.scale, map.angle);
 				draw_line(screen_x, screen_y, screen_x1, screen_y1, image);
 			}
 			if (y < map.row_count - 1)
 			{
-				convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y, map.scale);
-				convert_3D_to_2D(x, y + 1, map.rows[y + 1].row[x], &screen_x1, &screen_y1, map.scale);
+				convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y, map.scale, map.angle);
+				convert_3D_to_2D(x, y + 1, map.rows[y + 1].row[x], &screen_x1, &screen_y1, map.scale, map.angle);
 				draw_line(screen_x, screen_y, screen_x1, screen_y1, image);
 			}
 		}
@@ -116,10 +116,22 @@ static void keyboard_zoom(int keycode, t_fdf *fdf)
 	draw_fdf(fdf);
 }
 
+static void keyboard_rotate(int keycode, t_fdf *fdf)
+{
+	if (keycode == KEY_UP)
+		fdf->map.angle += ROTT_SPEED;
+	if (keycode == KEY_DOWN)
+		fdf->map.angle -= ROTT_SPEED;
+	draw_fdf(fdf);
+}
+
 static int	key_handler(int keycode, t_fdf *fdf)
 {
+	ft_printf("keycode = %d\n", keycode);
 	if (keycode == KEY_PLUS || keycode == KEY_MINUS)
 		keyboard_zoom(keycode, fdf);
+	else if (keycode == KEY_UP || keycode == KEY_DOWN)
+		keyboard_rotate(keycode, fdf);
 	else if (keycode == KEY_ESCAPE)
 		fdf_exit(fdf);
 	return (1);

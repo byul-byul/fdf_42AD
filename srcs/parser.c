@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 19:41:53 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 22:10:26 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static int	parse_map(t_fdf *fdf, char *path)
 	i = -1;
 	line = path;
 	fdf->map.scale = SCALE;
+	fdf->map.angle = ISO_ANGLE;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (fdf->error = 3, 0);

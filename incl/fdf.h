@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 21:16:36 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 22:16:42 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,21 @@
 # define WIN_HEIGHT	720
 
 # define ISO_ANGLE	120
-# define OFFSET_X	400
-# define OFFSET_Y	200
+# define OFFSET_X	WIN_WIDTH / 3
+# define OFFSET_Y	WIN_HEIGHT / 3
 
 # define SCALE		15
 # define ZOOM_MAX	300
 # define ZOOM_MIN	1
 # define ZOOM_SPEED	1
+# define ROTT_SPEED	5
 
 # define KEY_PLUS	69
 # define KEY_MINUS	78
 # define KEY_ESCAPE	53
 # define KEY_SPACE	49
+# define KEY_UP		126
+# define KEY_DOWN	125
 
 # define MOUSE_UP	4
 # define MOUSE_DOWN	5
@@ -78,6 +81,7 @@ typedef struct s_map
 	t_row	*rows;
 	int		row_count;
 	int		scale;
+	int		angle;
 }				t_map;
 
 typedef struct s_fdf
@@ -91,6 +95,6 @@ int		do_fdf(t_fdf *fdf, char *path);
 int		parse_arg(t_fdf *fdf, char *arg);
 void	print_error(int error_code);
 void	clean_rows(t_row *rows, int size);
-void	convert_3D_to_2D(int x, int y, int z, int *screen_x, int *screen_y, int scale);
+void	convert_3D_to_2D(int x, int y, int z, int *screen_x, int *screen_y, int scale, int angle);
 
 #endif
