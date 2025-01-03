@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 22:16:42 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 22:25:09 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WIN_HEIGHT	720
 
 # define ISO_ANGLE	120
+# define ROTT_ANGLE	0.1
 # define OFFSET_X	WIN_WIDTH / 3
 # define OFFSET_Y	WIN_HEIGHT / 3
 
@@ -40,6 +41,8 @@
 # define KEY_SPACE	49
 # define KEY_UP		126
 # define KEY_DOWN	125
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
 
 # define MOUSE_UP	4
 # define MOUSE_DOWN	5
