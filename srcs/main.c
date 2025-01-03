@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:49:39 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 16:33:11 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 16:49:15 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,78 @@ static void	convert_3D_to_2D(int x, int y, int z, int *screen_x, int *screen_y)
 	*screen_y = OFFSET_Y + SCALE * ((x + y) * sin(ISO_ANGLE) - z);
 }
 
+static void draw_line(int x0, int y0, int x1, int y1, t_img *image)
+{
+    int dx = abs(x1 - x0);
+    int dy = abs(y1 - y0);
+    int sx = (x0 < x1) ? 1 : -1;
+    int sy = (y0 < y1) ? 1 : -1;
+    int err = dx - dy;
+
+    while (1)
+	{
+        my_mlx_pixel_put(image, x0, y0, 0xFFFFFF);  // Draw white pixels (or any color)
+        if (x0 == x1 && y0 == y1)
+            break;
+        int e2 = err * 2;
+        if (e2 > -dy) {
+            err -= dy;
+            x0 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
+
 static void	draw_fdf_on_image(t_img *image, t_map map)
 {
 	int	x = -1;
 	int	y = -1;
 	int	screen_x;
 	int	screen_y;
+	int	screen_x1;
+	int	screen_y1;
 
 	while (++y < map.row_count)
 	{
 		x = -1;
 		while (++x < map.rows[y].row_size)
 		{
-			convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y);
-			my_mlx_pixel_put(image, screen_x, screen_y, 0xFFFFFF);
-			// my_mlx_pixel_put(image, x * SCALE + OFFSET_X, y * SCALE + OFFSET_Y, 0xFFFFFF);
+			if (x < map.rows[y].row_size - 1)
+			{
+				convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y);
+				convert_3D_to_2D(x + 1, y, map.rows[y].row[x + 1], &screen_x1, &screen_y1);
+				draw_line(screen_x, screen_y, screen_x1, screen_y1, image);
+			}
+			if (y < map.row_count - 1)
+			{
+				convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y);
+				convert_3D_to_2D(x, y + 1, map.rows[y + 1].row[x], &screen_x1, &screen_y1);
+				draw_line(screen_x, screen_y, screen_x1, screen_y1, image);
+			}
 		}
-		// 	my_mlx_pixel_put(image, x, y, 0xFFFFFF);
-		// my_mlx_pixel_put(image, 500, 250, 0xFFFFFF);
-		// my_mlx_pixel_put(image, 500, 251, 0xFFFFFF);
-		// my_mlx_pixel_put(image, 500, 249, 0xFFFFFF);
-		// my_mlx_pixel_put(image, 501, 250, 0xFFFFFF);
-		// my_mlx_pixel_put(image, 499, 250, 0xFFFFFF);
 	}
 }
+
+// static void	draw_fdf_on_image(t_img *image, t_map map)
+// {
+// 	int	x = -1;
+// 	int	y = -1;
+// 	int	screen_x;
+// 	int	screen_y;
+
+// 	while (++y < map.row_count)
+// 	{
+// 		x = -1;
+// 		while (++x < map.rows[y].row_size)
+// 		{
+// 			convert_3D_to_2D(x, y, map.rows[y].row[x], &screen_x, &screen_y);
+// 			my_mlx_pixel_put(image, screen_x, screen_y, 0xFFFFFF);
+// 		}
+// 	}
+// }
 
 static void	init_mlx(t_mlx *mlx, char *path)
 {

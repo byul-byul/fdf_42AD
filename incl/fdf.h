@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 16:35:06 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 16:56:35 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define WIN_HEIGHT	720
 
 # define ISO_ANGLE	60
-# define SCALE		20
-# define OFFSET_X	300
-# define OFFSET_Y	300
+# define SCALE		15
+# define OFFSET_X	450
+# define OFFSET_Y	450
 
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
 # define ERR_MSG_02	"ERROR: invalid file extension (Usage: ./fdf map.fdf).\n"
