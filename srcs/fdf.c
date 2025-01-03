@@ -90,25 +90,38 @@ static void	init_mlx(t_mlx *mlx, char *path)
 static int	draw_fdf(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx.mlx, fdf->mlx.win);
+	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img.img);
+	fdf->mlx.img.img = mlx_new_image(fdf->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
 	draw_fdf_on_image(&fdf->mlx.img, fdf->map);
 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img.img, 0, 0);
 	return (1);
 }
 
-static int zoom(t_fdf *fdf, int keycode)
+static void	fdf_exit(t_fdf *fdf)
 {
-	// ft_printf("keycode = %d, scale = %d\n", keycode, fdf->map.scale);
-	ft_printf("keycode = %d\n", keycode);
-	fdf += 0;
-	// ft_printf("scale = %d\n", fdf->map.scale);
-	// return (1);
-	// if (keycode == KEY_PLUS)
-	// 	if (fdf->map.scale + ZOOM_SPEED < ZOOM_MAX)
-	// 		fdf->map.scale += ZOOM_SPEED;
-	// if (keycode == KEY_MINUS)
-	// 	if (fdf->map.scale - ZOOM_SPEED > ZOOM_MIN)
-	// 		fdf->map.scale -= ZOOM_SPEED;
-	// ft_printf("keycode = %d, scale = %d\n", keycode, fdf->map.scale);
+	clean_rows(fdf->map.rows, fdf->map.row_count);
+	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img.img);
+	mlx_destroy_window(fdf->mlx.mlx, fdf->mlx.win);
+	exit(0);
+}
+
+static void zoom(int keycode, t_fdf *fdf)
+{
+	if (keycode == KEY_PLUS)
+		if (fdf->map.scale + ZOOM_SPEED <= ZOOM_MAX)
+			fdf->map.scale += ZOOM_SPEED;
+	if (keycode == KEY_MINUS)
+		if (fdf->map.scale - ZOOM_SPEED >= ZOOM_MIN)
+			fdf->map.scale -= ZOOM_SPEED;
+	draw_fdf(fdf);
+}
+
+static int	key_handler(int keycode, t_fdf *fdf)
+{
+	if (keycode == KEY_PLUS || keycode == KEY_MINUS)
+		zoom(keycode, fdf);
+	else if (keycode == KEY_ESCAPE)
+		fdf_exit(fdf);
 	return (1);
 }
 
@@ -116,7 +129,7 @@ int	do_fdf(t_fdf *fdf, char *path)
 {
 	init_mlx(&fdf->mlx, path);
 	draw_fdf(fdf);
-	mlx_key_hook(fdf->mlx.win, zoom, fdf->mlx.mlx);
+	mlx_key_hook(fdf->mlx.win, key_handler, fdf);
 	mlx_loop(fdf->mlx.mlx);
 	return (1);
 }

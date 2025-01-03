@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 19:54:14 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 20:48:33 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 # define OFFSET_Y	200
 
 # define SCALE		15
-# define ZOOM_MAX	30
-# define ZOOM_MIN	5
-# define ZOOM_SPEED	2
+# define ZOOM_MAX	300
+# define ZOOM_MIN	1
+# define ZOOM_SPEED	1
 
 # define KEY_PLUS	69
 # define KEY_MINUS	78
