@@ -105,7 +105,7 @@ static void	fdf_exit(t_fdf *fdf)
 	exit(0);
 }
 
-static void zoom(int keycode, t_fdf *fdf)
+static void keyboard_zoom(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_PLUS)
 		if (fdf->map.scale + ZOOM_SPEED <= ZOOM_MAX)
@@ -119,17 +119,36 @@ static void zoom(int keycode, t_fdf *fdf)
 static int	key_handler(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_PLUS || keycode == KEY_MINUS)
-		zoom(keycode, fdf);
+		keyboard_zoom(keycode, fdf);
 	else if (keycode == KEY_ESCAPE)
 		fdf_exit(fdf);
 	return (1);
 }
+
+// static void	mouse_zoom(int button, t_fdf *fdf)
+// {
+// 	if (button == MOUSE_UP)
+// 		if (fdf->map.scale + ZOOM_SPEED <= ZOOM_MAX)
+// 			fdf->map.scale += ZOOM_SPEED;
+// 	if (button == MOUSE_DOWN)
+// 		if (fdf->map.scale - ZOOM_SPEED >= ZOOM_MIN)
+// 			fdf->map.scale -= ZOOM_SPEED;
+// 	draw_fdf(fdf);
+// }
+
+// static int	mouse_handler(int button, t_fdf *fdf)
+// {
+// 	if (button == 4 || button == 5)
+// 		mouse_zoom(button, fdf);
+// 	return (1);
+// }
 
 int	do_fdf(t_fdf *fdf, char *path)
 {
 	init_mlx(&fdf->mlx, path);
 	draw_fdf(fdf);
 	mlx_key_hook(fdf->mlx.win, key_handler, fdf);
+	// mlx_mouse_hook(fdf->mlx.win, mouse_handler, &fdf);
 	mlx_loop(fdf->mlx.mlx);
 	return (1);
 }

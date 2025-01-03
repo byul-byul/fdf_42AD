@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 20:48:33 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/01/03 21:16:36 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 # define KEY_MINUS	78
 # define KEY_ESCAPE	53
 # define KEY_SPACE	49
+
+# define MOUSE_UP	4
+# define MOUSE_DOWN	5
 
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
 # define ERR_MSG_02	"ERROR: invalid file extension (Usage: ./fdf map.fdf).\n"
