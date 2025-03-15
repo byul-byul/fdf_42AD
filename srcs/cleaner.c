@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_00.c                                        :+:      :+:    :+:   */
+/*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/22 09:49:45 by bhajili           #+#    #+#             */
-/*   Updated: 2024/08/27 10:40:28 by bhajili          ###   ########.fr       */
+/*   Created: 2025/03/15 21:00:07 by bhajili           #+#    #+#             */
+/*   Updated: 2025/03/16 00:00:04 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../incl/fdf.h"
 
-void	ft_putchar(char c)
+void	clean_cells(t_cell **cells, int count)
 {
-	ft_putchar_fd(c, 1);
+	int i;
+
+	i = -1;
+	while (++i < count)
+		free(cells[i]);
 }
 
-void	ft_putstr(char *s)
+void	clean_data(t_fdf *f)
 {
-	ft_putstr_fd(s, 1);
-}
+	int	i;
 
-void	ft_putendl(char *s)
-{
-	ft_putendl_fd(s, 1);
-}
-
-void	ft_putnbr(int n)
-{
-	ft_putnbr_fd(n, 1);
+	i = -1;
+	while (++i < f->allocated_cell_count)
+		free(f->map->cells[i]);
+	if (f->has_allocated_cells)
+		free(f->map->cells);
+	if (f->has_allocated_map)
+		free(f->map);
 }

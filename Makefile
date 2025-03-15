@@ -6,7 +6,7 @@
 #    By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 12:10:48 by bhajili           #+#    #+#              #
-#    Updated: 2025/03/15 03:56:59 by bhajili          ###   ########.fr        #
+#    Updated: 2025/03/15 21:07:43 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,11 @@ CFLAGS  =   -Wall -Wextra -Werror -g
 
 SRCS    =   $(D_SRC)main.c \
 			$(D_SRC)fdf.c \
-            $(D_SRC)parser.c \
-			$(D_SRC)utils.c
+            $(D_SRC)validator.c \
+			$(D_SRC)initializator.c \
+			$(D_SRC)parser.c \
+			$(D_SRC)cleaner.c \
+			$(D_SRC)utils_00.c
 
 OBJS    =   $(SRCS:.c=.o)
 
