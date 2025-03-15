@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 22:10:26 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/15 03:56:35 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,6 @@ static int	set_row_count(t_fdf *fdf, char *path)
 
 int	parse_arg(t_fdf *fdf, char *arg)
 {
-	int	i;
-
-	i = 0;
 	if (set_row_count(fdf, arg))
 		if (parse_map(fdf, arg))
 			return (1);

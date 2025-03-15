@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+         #
+#    By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 12:10:48 by bhajili           #+#    #+#              #
-#    Updated: 2025/01/03 18:59:48 by bhajili          ###   ########.fr        #
+#    Updated: 2025/03/15 03:56:59 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ D_HDR   =   ./incl/
 D_SRC   =   ./srcs/
 
 CC      =   cc
-CFLAGS  =   -Wall -Wextra -Werror
+CFLAGS  =   -Wall -Wextra -Werror -g
 
 SRCS    =   $(D_SRC)main.c \
 			$(D_SRC)fdf.c \
@@ -29,12 +29,12 @@ OBJS    =   $(SRCS:.c=.o)
 all:    $(NAME)
 
 # linking with dependencies on object files
-$(NAME): $(OBJS) libft/libft.a minilibx/libmlx.a
-	$(CC) -o $@ $^ -Llibft -lft  -Lminilibx -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
+$(NAME): $(OBJS) libft/libft.a minilibx-linux/libmlx.a
+	$(CC) -o $@ $^ -Llibft -lft -Lminilibx-linux -lmlx -lX11 -lXext -lm
 
 # Library rule to build minilibx if needed
-minilibx/libmlx.a:
-	make -C minilibx
+minilibx-linux/libmlx.a:
+	make -C minilibx-linux
 
 # Library rule to build libft if needed
 libft/libft.a:
@@ -43,10 +43,10 @@ libft/libft.a:
 clean:
 	rm -f $(OBJS)
 	make -C libft clean
-	make -C minilibx clean
+	make -C minilibx-linux clean
 
 fclean: clean
-	rm -f libft/libft.a minilibx/libmlx.a $(NAME)
+	rm -f libft/libft.a minilibx-linux/libmlx.a $(NAME)
 
 re: fclean all
 

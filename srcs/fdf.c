@@ -79,6 +79,11 @@ static void	draw_fdf_on_image(t_img *image, t_map map)
 static void	init_mlx(t_mlx *mlx, char *path)
 {
 	mlx->mlx = mlx_init();
+    if (!mlx->mlx)
+    {
+        fprintf(stderr, "Error: mlx_init() failed\n");
+        exit(1);
+    }
 	mlx->win = mlx_new_window(mlx->mlx, WIN_WIDTH, WIN_HEIGHT, path);
 	mlx->img.img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
 	mlx->img.addr = mlx_get_data_addr(mlx->img.img, \
@@ -87,15 +92,49 @@ static void	init_mlx(t_mlx *mlx, char *path)
 											&mlx->img.endian);
 }
 
-static int	draw_fdf(t_fdf *fdf)
+static int draw_fdf(t_fdf *fdf)
 {
-	mlx_clear_window(fdf->mlx.mlx, fdf->mlx.win);
-	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img.img);
-	fdf->mlx.img.img = mlx_new_image(fdf->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
-	draw_fdf_on_image(&fdf->mlx.img, fdf->map);
-	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img.img, 0, 0);
-	return (1);
+    mlx_clear_window(fdf->mlx.mlx, fdf->mlx.win);
+
+    // Создаем новое изображение перед удалением старого
+    void *new_img = mlx_new_image(fdf->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
+    if (!new_img)
+    {
+        fprintf(stderr, "Error: mlx_new_image() failed\n");
+        return (1);
+    }
+
+    // Удаляем старое изображение, но только после успешного создания нового
+    if (fdf->mlx.img.img)
+        mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img.img);
+
+    // Обновляем указатель
+    fdf->mlx.img.img = new_img;
+    fdf->mlx.img.addr = mlx_get_data_addr(fdf->mlx.img.img, &fdf->mlx.img.bits_per_pixel, &fdf->mlx.img.line_length, &fdf->mlx.img.endian);
+
+    // Проверка успешного получения данных изображения
+    if (!fdf->mlx.img.addr)
+    {
+        fprintf(stderr, "Error: mlx_get_data_addr() failed\n");
+        return (1);
+    }
+
+    draw_fdf_on_image(&fdf->mlx.img, fdf->map);
+    mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img.img, 0, 0);
+
+    return (1);
 }
+
+
+// static int	draw_fdf(t_fdf *fdf)
+// {
+// 	mlx_clear_window(fdf->mlx.mlx, fdf->mlx.win);
+// 	mlx_destroy_image(fdf->mlx.mlx, fdf->mlx.img.img);
+// 	fdf->mlx.img.img = mlx_new_image(fdf->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
+// 	draw_fdf_on_image(&fdf->mlx.img, fdf->map);
+// 	mlx_put_image_to_window(fdf->mlx.mlx, fdf->mlx.win, fdf->mlx.img.img, 0, 0);
+// 	return (1);
+// }
 
 static void	fdf_exit(t_fdf *fdf)
 {
@@ -116,37 +155,37 @@ static void keyboard_zoom(int keycode, t_fdf *fdf)
 	draw_fdf(fdf);
 }
 
-static void rotate_x(t_fdf *fdf, float angle)
-{
-    int x, y;
-    float cos_theta = cos(angle);
-    float sin_theta = sin(angle);
+// static void rotate_x(t_fdf *fdf, float angle)
+// {
+//     int x, y;
+//     float cos_theta = cos(angle);
+//     float sin_theta = sin(angle);
 
-    for (y = 0; y < fdf->map.row_count; y++)
-    {
-        for (x = 0; x < fdf->map.rows[y].row_size; x++)
-        {
-            int z = fdf->map.rows[y].row[x];
+//     for (y = 0; y < fdf->map.row_count; y++)
+//     {
+//         for (x = 0; x < fdf->map.rows[y].row_size; x++)
+//         {
+//             int z = fdf->map.rows[y].row[x];
 
-            // Apply the X-axis rotation formula
-            float new_y = y * cos_theta - z * sin_theta;
-            float new_z = y * sin_theta + z * cos_theta;
-        }
-    }
-}
+//             // Apply the X-axis rotation formula
+//             float new_y = y * cos_theta - z * sin_theta;
+//             float new_z = y * sin_theta + z * cos_theta;
+//         }
+//     }
+// }
 
-static void keyboard_rotate(int keycode, t_fdf *fdf)
-{
-	if (keycode == KEY_UP)
-		rotate_x(fdf, ROTT_ANGLE);
-	if (keycode == KEY_DOWN)
-		rotate_x(fdf, -ROTT_ANGLE);
-	if (keycode == KEY_LEFT)
-		rotate_y(fdf, ROTT_ANGLE);
-	if (keycode == KEY_RIGHT)
-		rotate_y(fdf, -ROTT_ANGLE);
-	draw_fdf(fdf);
-}
+// static void keyboard_rotate(int keycode, t_fdf *fdf)
+// {
+// 	if (keycode == KEY_UP)
+// 		rotate_x(fdf, ROTT_ANGLE);
+// 	if (keycode == KEY_DOWN)
+// 		rotate_x(fdf, -ROTT_ANGLE);
+// 	if (keycode == KEY_LEFT)
+// 		rotate_y(fdf, ROTT_ANGLE);
+// 	if (keycode == KEY_RIGHT)
+// 		rotate_y(fdf, -ROTT_ANGLE);
+// 	draw_fdf(fdf);
+// }
 
 static int	key_handler(int keycode, t_fdf *fdf)
 {
@@ -155,11 +194,11 @@ static int	key_handler(int keycode, t_fdf *fdf)
 		fdf_exit(fdf);
 	else if (keycode == KEY_PLUS || keycode == KEY_MINUS)
 		keyboard_zoom(keycode, fdf);
-	else if (keycode == KEY_UP || \
-			keycode == KEY_DOWN || \
-			keycode == KEY_LEFT || \
-			keycode == KEY_RIGHT)
-		keyboard_rotate(keycode, fdf);
+	// else if (keycode == KEY_UP || 
+	// 		keycode == KEY_DOWN || 
+	// 		keycode == KEY_LEFT || 
+	// 		keycode == KEY_RIGHT)
+	// 	keyboard_rotate(keycode, fdf);
 	return (1);
 }
 

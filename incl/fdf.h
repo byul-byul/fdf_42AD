@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/01/03 22:25:09 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/15 04:03:25 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+# include <stdio.h>
 # include "libft.h"
 # include "mlx.h"
 # include <errno.h>
