@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 00:26:56 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 02:33:23 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ERR_MSG_ENABLED	TRUE
 
 # define FILE_EXT			".fdf"
+# define DEFAULT_COLOR		0
 
 # define ERR_CODE_ARG_COUNT		1
 # define ERR_CODE_INVALID_FILE	2
@@ -43,13 +44,13 @@
 # define ERR_MSG_00	"Error\n"
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
 # define ERR_MSG_02	"ERROR: invalid file extension (Usage: ./fdf map.fdf).\n"
-# define ERR_MSG_03	"ERROR: invalid file or file does not exist.\n"
-# define ERR_MSG_04	"ERROR: invalid map: empty lines are not allowed.\n"
-# define ERR_MSG_05	"ERROR: invalid map: map is empty.\n"
-# define ERR_MSG_06	"ERROR: invalid map: failed to parse map.\n"
-# define ERR_MSG_07	"ERROR: invalid map: failed to read map from file.\n"
-# define ERR_MSG_08	"ERROR: invalid map: all rows should have same size.\n"
-# define ERR_MSG_09	"ERROR: malloc() failed.\n"
+# define ERR_MSG_03	"ERROR: malloc() failed.\n"
+# define ERR_MSG_04	"ERROR: open() failed.\n"
+# define ERR_MSG_05	"ERROR: invalid map height.\n"
+# define ERR_MSG_06	"ERROR: invalid map: empty lines found.\n"
+# define ERR_MSG_07	"ERROR: invalid map: different row size.\n"
+# define ERR_MSG_08	"ERROR: invalid map width.\n"
+# define ERR_MSG_09	"ERROR: get_next_line() failed.\n"
 
 typedef struct s_cell
 {

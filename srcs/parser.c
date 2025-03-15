@@ -6,34 +6,60 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/15 23:51:46 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 02:36:54 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
+static int	parse_line(t_fdf *f, char *line, int y)
+{
+	char	**splits;
+	int		x;
+
+	if ('\n' == *line)
+		return (ERR_CODE_INVALID_MAP_E);
+	if (f->map->width != get_column_count(line))
+		return (ERR_CODE_INVALID_MAP_R);
+	splits = ft_split(line, ' ');
+	if (!splits)
+		return (ERR_CODE_MEMORY_FAIL);
+	x = 0;
+	while (splits[x] && x < f->map->width)
+	{
+		f->map->cells[y][x].z = ft_atoi(splits[x]);
+		f->map->cells[y][x].x = x;
+		f->map->cells[y][x].y = y;
+		f->map->cells[y][x].color = DEFAULT_COLOR;
+		free(splits[x]);
+		x++;
+	}
+	free(splits);
+	return (0);
+}
+
 int	parse_arg(t_fdf *f, char *path)
 {
 	int		fd;
+	int		i;
+	int		error_code;
 	char	*line;
 
+	i = -1;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (ERR_CODE_OPEN_FAIL);
 	line = get_next_line(fd);
+	if (!line)
+		error_code = ERR_CODE_GNL;
 	while (line)
 	{
-		if ('\n' == *line || f->map->width != get_column_count(line))
-		{
-			free(line);
-			close(fd);
-			if ('\n' == *line)
-				return (ERR_CODE_INVALID_MAP_E);
-			return (ERR_CODE_INVALID_MAP_R);
-		}
+		error_code = parse_line(f, line, ++i);
 		free(line);
+		if (error_code)
+			break ;
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (0);
+	return (error_code);
 }

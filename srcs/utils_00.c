@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 00:14:48 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 02:35:42 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,20 @@ void	print_error(int error_code)
 			ft_putstr(ERR_MSG_01);
 		else if (ERR_CODE_INVALID_FILE == error_code)
 			ft_putstr(ERR_MSG_02);
-		else if (error_code == 3)
+		else if (ERR_CODE_MEMORY_FAIL == error_code)
 			ft_putstr(ERR_MSG_03);
-		else if (error_code == 4)
+		else if (ERR_CODE_OPEN_FAIL == error_code)
 			ft_putstr(ERR_MSG_04);
-		else if (error_code == 5)
+		else if (ERR_CODE_INVALID_MAP_H == error_code)
 			ft_putstr(ERR_MSG_05);
-		else if (error_code == 6)
+		else if (ERR_CODE_INVALID_MAP_E == error_code)
 			ft_putstr(ERR_MSG_06);
+		else if (ERR_CODE_INVALID_MAP_R == error_code)
+			ft_putstr(ERR_MSG_07);
+		else if (ERR_CODE_INVALID_MAP_W == error_code)
+			ft_putstr(ERR_MSG_08);
+		else if (ERR_CODE_GNL == error_code)
+			ft_putstr(ERR_MSG_09);
 		else
 			ft_putstr(ERR_MSG_00);
 	}

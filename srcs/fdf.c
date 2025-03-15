@@ -14,12 +14,23 @@
 
 static void	show_data(t_fdf f)
 {
+	int	y;
+	int	x;
+
+	y = -1;
 	ft_printf("f.has_allocated_map = %d\n", f.has_allocated_map);
 	ft_printf("f.has_allocated_cells = %d\n", f.has_allocated_cells);
 	ft_printf("f.allocated_cell_count = %d\n", f.allocated_cell_count);
 	ft_printf("f.map->file_path = %s\n", f.map->file_path);
 	ft_printf("f.map->width = %d\n", f.map->width);
 	ft_printf("f.map->height = %d\n", f.map->height);
+	while (++y < f.map->height)
+	{
+		x = -1;
+		while (++x < f.map->width)
+			ft_printf("%d,%d,%d ", f.map->cells[y][x].x, f.map->cells[y][x].y, f.map->cells[y][x].z);
+		ft_printf("\n");
+	}
 }
 
 int	do_fdf(t_fdf *f)
