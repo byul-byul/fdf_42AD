@@ -6,11 +6,32 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 02:36:54 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 04:28:57 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+static int	parse_color(char *str)
+{
+	char	**num_color;
+	int		color;
+
+	color = DEFAULT_COLOR;
+	num_color = ft_split(str, ',');
+	if (num_color)
+		if (num_color[1])
+			if (ft_strnstr(num_color[1], "0x", 2))
+				color = ft_atoi_base(num_color[1] + 2, HEX_BASE);
+	if (num_color)
+	{
+		if (num_color[1])
+			free(num_color[1]);
+		free(num_color[0]);
+		free(num_color);
+	}
+	return (color);
+}
 
 static int	parse_line(t_fdf *f, char *line, int y)
 {
@@ -30,7 +51,7 @@ static int	parse_line(t_fdf *f, char *line, int y)
 		f->map->cells[y][x].z = ft_atoi(splits[x]);
 		f->map->cells[y][x].x = x;
 		f->map->cells[y][x].y = y;
-		f->map->cells[y][x].color = DEFAULT_COLOR;
+		f->map->cells[y][x].color = parse_color(splits[x]);
 		free(splits[x]);
 		x++;
 	}

@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 02:33:23 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 04:27:50 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define ERR_MSG_ENABLED	TRUE
 
 # define FILE_EXT			".fdf"
+# define HEX_PREFIX			"0x"
+# define HEX_BASE			"0123456789ABCDEF"
 # define DEFAULT_COLOR		0
 
 # define ERR_CODE_ARG_COUNT		1

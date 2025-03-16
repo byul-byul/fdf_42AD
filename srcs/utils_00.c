@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 02:35:42 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 04:31:45 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,20 @@ int	get_column_count(char *row)
 			row++;
 		if (*row == '-' || *row == '+')
 			row++;
-		while (ft_isdigit(*row))
-			row++;
-		if (ft_isdigit(*(row - 1)))
+		if (ft_isdigit(*row))
+		{
+			while (ft_isdigit(*row))
+				row++;
+			if (*row == ',')
+			{
+				row++;
+				if (ft_strnstr(row, "0x", 2))
+					row += 2;
+				while (ft_isxdigit(*row))
+					row++;
+			}
 			size++;
-		if (ft_isspace(*row) || ft_isdigit(*row) \
-			|| *row == '-' || *row == '+' \
-			|| *row == '\n' || *row == '\0')
-			continue ;
-		else
-			return (0);
+		}
 	}
 	return (size);
 }

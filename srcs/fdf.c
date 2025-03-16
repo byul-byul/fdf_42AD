@@ -28,7 +28,7 @@ static void	show_data(t_fdf f)
 	{
 		x = -1;
 		while (++x < f.map->width)
-			ft_printf("%d,%d,%d ", f.map->cells[y][x].x, f.map->cells[y][x].y, f.map->cells[y][x].z);
+			ft_printf("%02d,%02d,%02d(%08d) ", f.map->cells[y][x].x, f.map->cells[y][x].y, f.map->cells[y][x].z, f.map->cells[y][x].color);
 		ft_printf("\n");
 	}
 }
