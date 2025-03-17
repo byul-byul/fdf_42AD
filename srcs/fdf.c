@@ -33,45 +33,6 @@
 // 	}
 // }
 
-static void	isometric_projection(t_cell *c)
-{
-	int prev_x = c->x;
-	int prev_y = c->y;
-
-	c->x = (prev_x - prev_y) * cos(0.523599);
-	c->y = (prev_x + prev_y) * sin(0.523599) - c->z;
-
-	// printf("Projected: (%d, %d, %d) -> (%d, %d)\n",
-		// prev_x, prev_y, c->z, c->x, c->y);
-}
-
-void	apply_projection(t_fdf *f)
-{
-	int	x;
-	int	y;
-	int	offset_x;
-	int	offset_y;
-
-	offset_x = WIN_WIDTH / 50;
-	offset_y = WIN_HEIGHT / 50;
-
-	y = -1;
-	while (++y < f->map->height)
-	{
-		x = -1;
-		while (++x < f->map->width)
-		{
-			if (f->projection.type == ISOMETRIC)
-				isometric_projection(&f->map->cells[y][x]);
-			// else if (f->projection.type == PARALLEL)
-			// 	parallel_projection(&f->map->cells[y][x]); // Добавим позже
-
-			f->map->cells[y][x].x += offset_x;
-			f->map->cells[y][x].y += offset_y;
-		}
-	}
-}
-
 // static void	put_pixel(t_fdf *f, int x, int y, int color)
 // {
 // 	char	*dst;
@@ -139,16 +100,23 @@ static void	my_mlx_pixel_put(t_fdf *f, int x, int y, int color)
 
 static void	draw_line(t_fdf *f, t_cell a, t_cell b)
 {
-	int	dx = abs(b.x - a.x);
-	int	dy = abs(b.y - a.y);
-	int	sx = (a.x < b.x) ? 1 : -1;
-	int	sy = (a.y < b.y) ? 1 : -1;
-	int	err = dx - dy;
-	int	e2;
+	int	dx, dy, sx, sy, err, e2;
+
+	// Масштабируем перед алгоритмом
+	// a.x *= SCALE_X;
+	// a.y *= SCALE_Y;
+	// b.x *= SCALE_X;
+	// b.y *= SCALE_Y;
+
+	dx = abs(b.x - a.x);
+	dy = abs(b.y - a.y);
+	sx = (a.x < b.x) ? 1 : -1;
+	sy = (a.y < b.y) ? 1 : -1;
+	err = dx - dy;
 
 	while (1)
 	{
-		my_mlx_pixel_put(f, a.x * SCALE, a.y * SCALE, a.color); // Используем цвет из `a`
+		my_mlx_pixel_put(f, a.x, a.y, a.color); // Теперь `x, y` уже масштабированы
 		if (a.x == b.x && a.y == b.y)
 			break;
 		e2 = err * 2;
@@ -165,7 +133,7 @@ static void	draw_line(t_fdf *f, t_cell a, t_cell b)
 	}
 }
 
-void	draw_fdf(t_fdf *f)
+static void	draw_fdf(t_fdf *f)
 {
 	int	x;
 	int	y;
@@ -178,21 +146,13 @@ void	draw_fdf(t_fdf *f)
 		while (++x < f->map->width)
 		{
 			if (x < f->map->width - 1)
-				draw_line(f, f->map->cells[y][x], f->map->cells[y][x + 1]); // Горизонтальные линии
+				draw_line(f, f->map->cells[y][x], f->map->cells[y][x + 1]);
 			if (y < f->map->height - 1)
-				draw_line(f, f->map->cells[y][x], f->map->cells[y + 1][x]); // Вертикальные линии
+				draw_line(f, f->map->cells[y][x], f->map->cells[y + 1][x]);
 		}
 	}
 	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img, 0, 0);
 }
-
-// int	do_fdf(t_fdf *f)
-// {
-// 	apply_projection(f); // Применяем проекцию к карте
-// 	draw_fdf(f); // Рисуем карту
-// 	mlx_loop(f->mlx.mlx); // Запускаем цикл обработки событий MiniLibX
-// 	return (0);
-// }
 
 void	fdf(int ac, char **av)
 {
@@ -206,8 +166,11 @@ void	fdf(int ac, char **av)
 		error_code = parse_arg(&f, av[0]);
 	if (0 == error_code)
 		error_code = validate_data(&f);
-	draw_fdf(&f);
-	mlx_loop(f.mlx.mlx);
+	if (0 == error_code)
+	{
+		draw_fdf(&f);
+		mlx_loop(f.mlx.mlx);
+	}
 	print_error(error_code);
 	clean_data(&f);
 }

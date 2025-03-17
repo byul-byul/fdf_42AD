@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/17 10:59:47 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/17 13:54:37 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@
 
 # define ISO_ANGLE_X			0.5
 # define ISO_ANGLE_Y			0.5
-# define SCALE					20
+# define OFFSET_X				WIN_WIDTH / 3
+# define OFFSET_Y				WIN_HEIGHT / 3
+# define SCALE					15
 
 # define FILE_EXT				".fdf"
 # define HEX_PREFIX				"0x"
@@ -143,6 +145,7 @@ size_t	ft_arrsize(char **arr);
 int		get_column_count(char *row);
 void	print_error(int error_code);
 void	clean_cells(t_cell **cells, int count);
+void	apply_projection(t_fdf *f);
 
 // # include <stdio.h>
 // # include "libft.h"
