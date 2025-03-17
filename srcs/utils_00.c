@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 04:31:45 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/17 10:30:06 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	get_column_count(char *row)
 				row++;
 			if (*row == ',')
 			{
-				row++;
+				while (*row == ',')
+					row++;
 				if (ft_strnstr(row, "0x", 2))
 					row += 2;
 				while (ft_isxdigit(*row))
@@ -37,7 +38,19 @@ int	get_column_count(char *row)
 			}
 			size++;
 		}
+		else if (*row != '\0')
+			return (-1);
 	}
+	return (size);
+}
+
+size_t	ft_arrsize(char **arr)
+{
+	size_t	size;
+
+	size = 0;
+	while (arr[size])
+		size++;
 	return (size);
 }
 
@@ -47,24 +60,28 @@ int	get_file_line_count(char *path)
 	char	buffer[BUFFER_SIZE];
 	ssize_t	bytes_read;
 	int		count;
-	int		i;
+	char	last_char;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (-1);
 	count = 0;
-	bytes_read = read(fd, buffer, BUFFER_SIZE);
-	while (bytes_read)
+	last_char = '\n';
+	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
-		i = -1;
-		while (++i < bytes_read)
+		for (int i = 0; i < bytes_read; i++)
+		{
 			if (buffer[i] == '\n')
 				count++;
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
+			last_char = buffer[i];
+		}
 	}
+	if (last_char != '\n')
+		count++;
 	close(fd);
 	return (count);
 }
+
 
 void	print_error(int error_code)
 {

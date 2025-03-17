@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 04:27:50 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/17 10:59:47 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,22 @@
 # include <stdio.h>
 # include <errno.h>
 
-# define TRUE				1
-# define FALSE				0
-# define ERR_MSG_ENABLED	TRUE
+# define TRUE					1
+# define FALSE					0
+# define ERR_MSG_ENABLED		TRUE
 
-# define FILE_EXT			".fdf"
-# define HEX_PREFIX			"0x"
-# define HEX_BASE			"0123456789ABCDEF"
-# define DEFAULT_COLOR		0
+# define WIN_WIDTH				800
+# define WIN_HEIGHT				600
+# define WIN_NAME				"FDF"
+
+# define ISO_ANGLE_X			0.5
+# define ISO_ANGLE_Y			0.5
+# define SCALE					20
+
+# define FILE_EXT				".fdf"
+# define HEX_PREFIX				"0x"
+# define HEX_BASE				"0123456789ABCDEF"
+# define DEFAULT_COLOR			16711680
 
 # define ERR_CODE_ARG_COUNT		1
 # define ERR_CODE_INVALID_FILE	2
@@ -42,6 +50,10 @@
 # define ERR_CODE_INVALID_MAP_R	7
 # define ERR_CODE_INVALID_MAP_W	8
 # define ERR_CODE_GNL			9
+# define ERR_CODE_MLX_INIT		10
+# define ERR_CODE_MLX_WIN		11
+# define ERR_CODE_MLX_IMG		12
+# define ERR_CODE_MLX_ADDR		13
 
 # define ERR_MSG_00	"Error\n"
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
@@ -53,6 +65,10 @@
 # define ERR_MSG_07	"ERROR: invalid map: different row size.\n"
 # define ERR_MSG_08	"ERROR: invalid map width.\n"
 # define ERR_MSG_09	"ERROR: get_next_line() failed.\n"
+# define ERR_MSG_10	"ERROR: mlx_init() failed.\n"
+# define ERR_MSG_11	"ERROR: mlx_new_window() failed.\n"
+# define ERR_MSG_12	"ERROR: mlx_new_image() failed.\n"
+# define ERR_MSG_13	"ERROR: mlx_get_data_addr() failed.\n"
 
 typedef struct s_cell
 {
@@ -109,7 +125,7 @@ typedef struct s_fdf
 {
 	int				has_allocated_map;
 	int				has_allocated_cells;
-	int				allocated_cell_count;
+	int				allocated_cellrow_count;
 	t_map			*map;
 	t_camera		camera;
 	t_projection	projection;
@@ -119,9 +135,11 @@ typedef struct s_fdf
 void	fdf(int ac, char **av);
 int		validate_arg(int ac, char **av);
 int		init_data(t_fdf *f, char *path);
+int		validate_data(t_fdf *f);
 int		parse_arg(t_fdf *f, char *path);
 void	clean_data(t_fdf *f);
 int		get_file_line_count(char *path);
+size_t	ft_arrsize(char **arr);
 int		get_column_count(char *row);
 void	print_error(int error_code);
 void	clean_cells(t_cell **cells, int count);

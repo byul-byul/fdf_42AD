@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 21:00:07 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 00:00:04 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 22:04:27 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	clean_data(t_fdf *f)
 	int	i;
 
 	i = -1;
-	while (++i < f->allocated_cell_count)
+	while (++i < f->allocated_cellrow_count)
 		free(f->map->cells[i]);
 	if (f->has_allocated_cells)
 		free(f->map->cells);

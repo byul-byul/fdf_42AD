@@ -6,24 +6,42 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:39:33 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 00:30:07 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/17 11:18:31 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+static int	init_mlx(t_fdf *f)
+{
+	f->mlx.mlx = mlx_init();
+	if (!f->mlx.mlx)
+		return (ERR_CODE_MLX_INIT);
+	f->mlx.win = mlx_new_window(f->mlx.mlx, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+	if (!f->mlx.win)
+		return (ERR_CODE_MLX_WIN);
+	f->mlx.img = mlx_new_image(f->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!f->mlx.img)
+		return (ERR_CODE_MLX_IMG);
+	f->mlx.addr = mlx_get_data_addr(f->mlx.img, &f->mlx.bpp, \
+									&f->mlx.line_length, &f->mlx.endian);
+	if (!f->mlx.addr)
+		return (ERR_CODE_MLX_ADDR);
+	return (0);
+}
 
 static int	init_cell_rows(t_fdf *f)
 {
 	int	i;
 
 	i = -1;
-	f->allocated_cell_count = 0;
+	f->allocated_cellrow_count = 0;
 	while (++i < f->map->height)
 	{
 		f->map->cells[i] = (t_cell *)malloc(sizeof(t_cell) * f->map->width);
 		if (!f->map->cells[i])
 			return (ERR_CODE_MEMORY_FAIL);
-		f->allocated_cell_count++;
+		f->allocated_cellrow_count++;
 	}
 	return (0);
 }
@@ -69,8 +87,11 @@ int	init_data(t_fdf *f, char *path)
 
 	f->has_allocated_map = 0;
 	f->has_allocated_cells = 0;
+	f->projection.type = ISOMETRIC;
 	error_code = init_map(f, path);
 	if (0 == error_code)
 		error_code = init_cells(f, path);
+	if (0 == error_code)
+		error_code = init_mlx(f);
 	return (error_code);
 }

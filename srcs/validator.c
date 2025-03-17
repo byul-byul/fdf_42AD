@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 16:10:14 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/15 20:21:48 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 22:33:17 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@
 // 					fdf->error = 8, 0);
 // 	return (1);
 // }
+
+int	validate_data(t_fdf *f)
+{
+	if (0 >= f->map->width)
+		return (ERR_CODE_INVALID_MAP_W);
+	if (0 >= f->map->height)
+		return (ERR_CODE_INVALID_MAP_H);
+	return (0);
+}
 
 static int	is_valid_file(char *path)
 {

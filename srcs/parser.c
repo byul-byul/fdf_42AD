@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/16 04:28:57 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/16 22:17:07 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,11 @@ static int	parse_color(char *str)
 	color = DEFAULT_COLOR;
 	num_color = ft_split(str, ',');
 	if (num_color)
-		if (num_color[1])
+		if (2 == ft_arrsize(num_color))
 			if (ft_strnstr(num_color[1], "0x", 2))
 				color = ft_atoi_base(num_color[1] + 2, HEX_BASE);
 	if (num_color)
-	{
-		if (num_color[1])
-			free(num_color[1]);
-		free(num_color[0]);
-		free(num_color);
-	}
+		ft_freearr(num_color, ft_arrsize(num_color));
 	return (color);
 }
 
