@@ -6,11 +6,33 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/17 10:30:06 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/17 15:56:20 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+void	define_min_max_z(t_fdf *f)
+{
+	int	x;
+	int	y;
+
+	f->map->min_z = INT_MAX;
+	f->map->max_z = INT_MIN;
+
+	y = -1;
+	while (++y < f->map->height)
+	{
+		x = -1;
+		while (++x < f->map->width)
+		{
+			if (f->map->cells[y][x].z < f->map->min_z)
+				f->map->min_z = f->map->cells[y][x].z;
+			if (f->map->cells[y][x].z > f->map->max_z)
+				f->map->max_z = f->map->cells[y][x].z;
+		}
+	}
+}
 
 int	get_column_count(char *row)
 {
@@ -81,7 +103,6 @@ int	get_file_line_count(char *path)
 	close(fd);
 	return (count);
 }
-
 
 void	print_error(int error_code)
 {

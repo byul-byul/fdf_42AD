@@ -33,102 +33,50 @@
 // 	}
 // }
 
-// static void	put_pixel(t_fdf *f, int x, int y, int color)
-// {
-// 	char	*dst;
-
-// 	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
-// 		return;
-// 	dst = f->mlx.addr + (y * f->mlx.line_length + x * (f->mlx.bpp / 8));
-// 	*(unsigned int *)dst = color;
-// }
-
-// static void	bresenham(t_fdf *f, t_cell a, t_cell b)
-// {
-// 	int	dx;
-// 	int	dy;
-// 	int	sx;
-// 	int	sy;
-// 	int	err;
-// 	int	e2;
-
-// 	// Масштабируем точки перед расчетами
-// 	a.x *= SCALE;
-// 	a.y *= SCALE;
-// 	b.x *= SCALE;
-// 	b.y *= SCALE;
-
-// 	dx = abs(b.x - a.x);
-// 	dy = -abs(b.y - a.y);
-// 	sx = (a.x < b.x) ? 1 : -1;
-// 	sy = (a.y < b.y) ? 1 : -1;
-// 	err = dx + dy;
-
-// 	while (1)
-// 	{
-// 		put_pixel(f, a.x, a.y, a.color);
-// 		if (a.x == b.x && a.y == b.y)
-// 			break;
-// 		e2 = 2 * err;
-// 		if (e2 >= dy)
-// 		{
-// 			err += dy;
-// 			a.x += sx;
-// 		}
-// 		if (e2 <= dx)
-// 		{
-// 			err += dx;
-// 			a.y += sy;
-// 		}
-// 	}
-// }
-
-// void	draw_line(t_fdf *f, t_cell a, t_cell b)
-// {
-// 	bresenham(f, a, b);
-// }
-
 static void	my_mlx_pixel_put(t_fdf *f, int x, int y, int color)
 {
 	char	*dst;
 
 	if (x < 0 || x >= WIN_WIDTH || y < 0 || y >= WIN_HEIGHT)
-		return;
+		return ;
 	dst = f->mlx.addr + (y * f->mlx.line_length + x * (f->mlx.bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
+static void	init_line_vars(t_cell a, t_cell b, t_line *line)
+{
+	line->dx = abs(b.x - a.x);
+	line->dy = abs(b.y - a.y);
+	line->sx = a.x < b.x;
+	line->sy = a.y < b.y;
+	if (0 == line->sx)
+		line->sx = -1;
+	if (0 == line->sy)
+		line->sy = -1;
+	line->err = line->dx - line->dy;
+}
+
 static void	draw_line(t_fdf *f, t_cell a, t_cell b)
 {
-	int	dx, dy, sx, sy, err, e2;
+	t_line	line;
+	int		e2;
 
-	// Масштабируем перед алгоритмом
-	// a.x *= SCALE_X;
-	// a.y *= SCALE_Y;
-	// b.x *= SCALE_X;
-	// b.y *= SCALE_Y;
-
-	dx = abs(b.x - a.x);
-	dy = abs(b.y - a.y);
-	sx = (a.x < b.x) ? 1 : -1;
-	sy = (a.y < b.y) ? 1 : -1;
-	err = dx - dy;
-
+	init_line_vars(a, b, &line);
 	while (1)
 	{
-		my_mlx_pixel_put(f, a.x, a.y, a.color); // Теперь `x, y` уже масштабированы
+		my_mlx_pixel_put(f, a.x, a.y, a.color);
 		if (a.x == b.x && a.y == b.y)
-			break;
-		e2 = err * 2;
-		if (e2 > -dy)
+			break ;
+		e2 = line.err * 2;
+		if (e2 > -line.dy)
 		{
-			err -= dy;
-			a.x += sx;
+			line.err -= line.dy;
+			a.x += line.sx;
 		}
-		if (e2 < dx)
+		if (e2 < line.dx)
 		{
-			err += dx;
-			a.y += sy;
+			line.err += line.dx;
+			a.y += line.sy;
 		}
 	}
 }
@@ -164,10 +112,13 @@ void	fdf(int ac, char **av)
 		error_code = init_data(&f, av[0]);
 	if (0 == error_code)
 		error_code = parse_arg(&f, av[0]);
+	// show_data(f);
 	if (0 == error_code)
 		error_code = validate_data(&f);
 	if (0 == error_code)
 	{
+		define_min_max_z(&f);
+		apply_gradient(&f);
 		draw_fdf(&f);
 		mlx_loop(f.mlx.mlx);
 	}
