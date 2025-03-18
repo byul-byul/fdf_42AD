@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:39:33 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/17 15:08:01 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/18 11:46:27 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static int	init_mlx(t_fdf *f)
 {
+	f->mlx.mlx = NULL;
+	f->mlx.win = NULL;
+	f->mlx.img = NULL;
 	f->mlx.mlx = mlx_init();
 	if (!f->mlx.mlx)
 		return (ERR_CODE_MLX_INIT);

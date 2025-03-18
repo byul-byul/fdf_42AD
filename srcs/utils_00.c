@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/17 15:56:20 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/18 11:49:07 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,14 @@ void	print_error(int error_code)
 			ft_putstr(ERR_MSG_08);
 		else if (ERR_CODE_GNL == error_code)
 			ft_putstr(ERR_MSG_09);
+		else if (ERR_CODE_MLX_INIT == error_code)
+			ft_putstr(ERR_MSG_10);
+		else if (ERR_CODE_MLX_WIN == error_code)
+			ft_putstr(ERR_MSG_11);
+		else if (ERR_CODE_MLX_IMG == error_code)
+			ft_putstr(ERR_MSG_12);
+		else if (ERR_CODE_MLX_ADDR == error_code)
+			ft_putstr(ERR_MSG_13);
 		else
 			ft_putstr(ERR_MSG_00);
 	}
