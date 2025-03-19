@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 10:53:27 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 12:47:28 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@
 
 # define ISO_ANGLE_X			0.5
 # define ISO_ANGLE_Y			0.5
-# define OFFSET_X				WIN_WIDTH / 3
+# define ROT_ANGLE				2
+# define OFFSET_X				WIN_HEIGHT / 3
 # define OFFSET_Y				WIN_HEIGHT / 3
+# define OFFSET_Z				WIN_HEIGHT / 3
 # define SCALE					20
  #define SCALE_Z				42
 # define CONIC_FACTOR			0.1
@@ -67,6 +69,12 @@
 
 # define ESC_BUTTON_CODE		65307
 # define PROJ_BUTTON_CODE		112
+# define UP_BUTTON_CODE			65362
+# define RIGHT_BUTTON_CODE		65363
+# define DOWN_BUTTON_CODE		65364
+# define LEFT_BUTTON_CODE		65361
+# define COMMA_BUTTON_CODE		44
+# define DOT_BUTTON_CODE		46
 
 # define ERR_MSG_00	"Error\n"
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
@@ -99,6 +107,7 @@ typedef struct s_cell
 	int	z;
 	int	original_x;
 	int	original_y;
+	int	original_z;
 	int	color;
 }				t_cell;
 
@@ -178,6 +187,8 @@ void	apply_gradient(t_fdf *f);
 int		handle_key(int keycode, t_fdf *f);
 void	draw_fdf(t_fdf *f);
 void	refresh_cells(t_fdf *f);
+void	apply_rotation(t_fdf *f, int keycode);
+int		ft_abs(int a);
 
 // # include <stdio.h>
 // # include "libft.h"

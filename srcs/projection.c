@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:40:10 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 10:02:13 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 11:01:59 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ static void	parallel_projection(t_cell *c)
 	c->y = c->original_y * SCALE + OFFSET_Y;
 }
 
-static void	isometric_projection(t_cell *c)
+static void	isometric_projection(t_cell *c, double iso_angle_x, double iso_angle_y)
 {
 	int	prev_x;
 	int	prev_y;
 
 	prev_x = c->x;
 	prev_y = c->y;
-	c->x = ((prev_x - prev_y) * cos(ISO_ANGLE_X)) * SCALE + OFFSET_X;
-	c->y = ((prev_x + prev_y) * sin(ISO_ANGLE_Y) - c->z) * SCALE + OFFSET_Y;
+	c->x = ((prev_x - prev_y) * cos(iso_angle_x)) * SCALE + OFFSET_X;
+	c->y = ((prev_x + prev_y) * sin(iso_angle_y) - c->z) * SCALE + OFFSET_Y;
 }
 
 void	apply_projection(t_fdf *f)
@@ -73,7 +73,7 @@ void	apply_projection(t_fdf *f)
 		while (++x < f->map->width)
 		{
 			if (f->projection.type == ISOMETRIC)
-				isometric_projection(&f->map->cells[y][x]);
+				isometric_projection(&f->map->cells[y][x], ISO_ANGLE_X, ISO_ANGLE_Y);
 			else if (f->projection.type == PARALLEL)
 				parallel_projection(&f->map->cells[y][x]);
 			else if (f->projection.type == CONIC)

@@ -6,11 +6,18 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 06:22:54 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 11:45:59 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+int	ft_abs(int a)
+{
+	if (a > 0)
+		return (a);
+	return (-a);
+}
 
 void	refresh_cells(t_fdf *f)
 {

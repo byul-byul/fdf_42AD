@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:08:42 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/18 15:54:53 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 12:02:54 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	my_mlx_pixel_put(t_fdf *f, int x, int y, int color)
 
 static void	init_line_vars(t_cell a, t_cell b, t_line *line)
 {
-	line->dx = abs(b.x - a.x);
-	line->dy = abs(b.y - a.y);
+	line->dx = ft_abs(b.x - a.x);
+	line->dy = ft_abs(b.y - a.y);
 	line->sx = a.x < b.x;
 	line->sy = a.y < b.y;
 	if (0 == line->sx)

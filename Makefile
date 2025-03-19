@@ -6,7 +6,7 @@
 #    By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 12:10:48 by bhajili           #+#    #+#              #
-#    Updated: 2025/03/18 12:00:07 by bhajili          ###   ########.fr        #
+#    Updated: 2025/03/19 12:08:20 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS    =   $(D_SRC)main.c \
 			$(D_SRC)projection.c \
 			$(D_SRC)colorant.c \
 			$(D_SRC)event_handler.c \
+			$(D_SRC)rotation.c \
 			$(D_SRC)cleaner.c \
 			$(D_SRC)utils_00.c
 

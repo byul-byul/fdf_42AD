@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:58:06 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 08:37:58 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 12:07:58 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,38 @@ static void	handle_escape_event(t_fdf *f)
 	exit(0);
 }
 
+static int	is_rotation_event(int keycode)
+{
+	if (UP_BUTTON_CODE == keycode)
+		return (1);
+	if (RIGHT_BUTTON_CODE == keycode)
+		return (1);
+	if (DOWN_BUTTON_CODE == keycode)
+		return (1);
+	if (LEFT_BUTTON_CODE == keycode)
+		return (1);
+	if (COMMA_BUTTON_CODE == keycode)
+		return (1);
+	if (DOT_BUTTON_CODE == keycode)
+		return (1);
+	return (0);
+}
+
+static void	handle_rotation(t_fdf *f, int keycode)
+{
+	refresh_image(f);
+	apply_rotation(f, keycode);
+	draw_fdf(f);
+}
+
 int	handle_key(int keycode, t_fdf *f)
 {
+	printf("keycode = %d\n", keycode);
 	if (ESC_BUTTON_CODE == keycode)
 		handle_escape_event(f);
 	else if (PROJ_BUTTON_CODE == keycode)
 		handle_projection_change(f);
+	else if (is_rotation_event(keycode))
+		handle_rotation(f, keycode);
 	return (0);
 }

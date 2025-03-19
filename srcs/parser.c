@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/18 14:55:27 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 11:42:48 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ static int	parse_line(t_fdf *f, char *line, int y)
 	x = 0;
 	while (splits[x] && x < f->map->width)
 	{
-		f->map->cells[y][x].z = ft_atoi(splits[x]);
-		f->map->cells[y][x].x = x;
-		f->map->cells[y][x].y = y;
 		f->map->cells[y][x].original_x = x;
 		f->map->cells[y][x].original_y = y;
+		f->map->cells[y][x].original_z = ft_atoi(splits[x]);
+		f->map->cells[y][x].z = f->map->cells[y][x].original_z;
+		f->map->cells[y][x].x = f->map->cells[y][x].original_x;
+		f->map->cells[y][x].y = f->map->cells[y][x].original_y;
 		f->map->cells[y][x].color = parse_color(splits[x]);
 		free(splits[x]);
 		x++;
