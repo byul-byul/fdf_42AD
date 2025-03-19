@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/17 15:43:18 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 10:53:27 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@
 # define OFFSET_X				WIN_WIDTH / 3
 # define OFFSET_Y				WIN_HEIGHT / 3
 # define SCALE					20
+ #define SCALE_Z				42
+# define CONIC_FACTOR			0.1
+# define CAVALIER_FACTOR		0.5
+# define CABINET_FACTOR			0.25
+# define FOCAL_LENGTH			800
 
 # define FILE_EXT				".fdf"
 # define HEX_PREFIX				"0x"
@@ -59,6 +64,9 @@
 # define ERR_CODE_MLX_WIN		11
 # define ERR_CODE_MLX_IMG		12
 # define ERR_CODE_MLX_ADDR		13
+
+# define ESC_BUTTON_CODE		65307
+# define PROJ_BUTTON_CODE		112
 
 # define ERR_MSG_00	"Error\n"
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
@@ -89,6 +97,8 @@ typedef struct s_cell
 	int	x;
 	int	y;
 	int	z;
+	int	original_x;
+	int	original_y;
 	int	color;
 }				t_cell;
 
@@ -128,6 +138,9 @@ typedef enum e_proj_type
 {
 	ISOMETRIC,
 	PARALLEL,
+	CONIC,
+	CAVALIER,
+	CABINET,
 	PERSPECTIVE
 }			t_proj_type;
 
@@ -162,6 +175,9 @@ void	clean_cells(t_cell **cells, int count);
 void	apply_projection(t_fdf *f);
 void	define_min_max_z(t_fdf *f);
 void	apply_gradient(t_fdf *f);
+int		handle_key(int keycode, t_fdf *f);
+void	draw_fdf(t_fdf *f);
+void	refresh_cells(t_fdf *f);
 
 // # include <stdio.h>
 // # include "libft.h"

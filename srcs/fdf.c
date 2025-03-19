@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:08:42 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/18 11:49:48 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/18 15:54:53 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,12 @@ static void	draw_line(t_fdf *f, t_cell a, t_cell b)
 	}
 }
 
-static void	draw_fdf(t_fdf *f)
+void	draw_fdf(t_fdf *f)
 {
 	int	x;
 	int	y;
 
 	y = -1;
-	apply_projection(f);
 	while (++y < f->map->height)
 	{
 		x = -1;
@@ -119,7 +118,9 @@ void	fdf(int ac, char **av)
 	{
 		define_min_max_z(&f);
 		apply_gradient(&f);
+		apply_projection(&f);
 		draw_fdf(&f);
+		mlx_key_hook(f.mlx.win, handle_key, &f);
 		mlx_loop(f.mlx.mlx);
 	}
 	print_error(error_code);

@@ -6,11 +6,28 @@
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/18 11:49:07 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/19 06:22:54 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+void	refresh_cells(t_fdf *f)
+{
+	int	y;
+	int	x;
+
+	y = -1;
+	while (++y < f->map->height)
+	{
+		x = -1;
+		while (++x < f->map->width)
+		{
+			f->map->cells[y][x].x = f->map->cells[y][x].original_x;
+			f->map->cells[y][x].y = f->map->cells[y][x].original_y;
+		}
+	}
+}
 
 void	define_min_max_z(t_fdf *f)
 {
