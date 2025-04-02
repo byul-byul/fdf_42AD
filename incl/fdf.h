@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 12:47:28 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/02 09:36:06 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@
 # define ERR_CODE_MLX_IMG		12
 # define ERR_CODE_MLX_ADDR		13
 
-# define ESC_BUTTON_CODE		65307
-# define PROJ_BUTTON_CODE		112
-# define UP_BUTTON_CODE			65362
-# define RIGHT_BUTTON_CODE		65363
-# define DOWN_BUTTON_CODE		65364
-# define LEFT_BUTTON_CODE		65361
-# define COMMA_BUTTON_CODE		44
-# define DOT_BUTTON_CODE		46
+# define ESC_BUTTON_CODE		53
+# define PROJ_BUTTON_CODE		35
+# define UP_BUTTON_CODE			126
+# define RIGHT_BUTTON_CODE		124
+# define DOWN_BUTTON_CODE		125
+# define LEFT_BUTTON_CODE		123
+# define COMMA_BUTTON_CODE		43
+# define DOT_BUTTON_CODE		47
 
 # define ERR_MSG_00	"Error\n"
 # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
