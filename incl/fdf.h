@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/02 09:36:06 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/02 14:00:06 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@
 # define COLOR_MASK				0xFF
 # define COLOR_MIN				0x0000FF
 # define COLOR_MAX				0xFF0000
-
-# define ERR_CODE_ARG_COUNT		1
-# define ERR_CODE_INVALID_FILE	2
-# define ERR_CODE_MEMORY_FAIL	3
-# define ERR_CODE_OPEN_FAIL		4
-# define ERR_CODE_INVALID_MAP_H	5
-# define ERR_CODE_INVALID_MAP_E	6
-# define ERR_CODE_INVALID_MAP_R	7
-# define ERR_CODE_INVALID_MAP_W	8
-# define ERR_CODE_GNL			9
-# define ERR_CODE_MLX_INIT		10
-# define ERR_CODE_MLX_WIN		11
-# define ERR_CODE_MLX_IMG		12
-# define ERR_CODE_MLX_ADDR		13
 
 # define ESC_BUTTON_CODE		53
 # define PROJ_BUTTON_CODE		35
@@ -143,6 +129,23 @@ typedef struct s_mlx
 	int		endian;
 }				t_mlx;
 
+typedef enum e_error_code
+{
+	ERR_CODE_ARG_COUNT,
+	ERR_CODE_INVALID_FILE,
+	ERR_CODE_MEMORY_FAIL,
+	ERR_CODE_OPEN_FAIL,
+	ERR_CODE_INVALID_MAP_H,
+	ERR_CODE_INVALID_MAP_E,
+	ERR_CODE_INVALID_MAP_R,
+	ERR_CODE_INVALID_MAP_W,
+	ERR_CODE_GNL,
+	ERR_CODE_MLX_INIT,
+	ERR_CODE_MLX_WIN,
+	ERR_CODE_MLX_IMG,
+	ERR_CODE_MLX_ADDR
+}			t_error_code;
+
 typedef enum e_proj_type
 {
 	ISOMETRIC,
@@ -177,7 +180,6 @@ int		validate_data(t_fdf *f);
 int		parse_arg(t_fdf *f, char *path);
 void	clean_data(t_fdf *f);
 int		get_file_line_count(char *path);
-size_t	ft_arrsize(char **arr);
 int		get_column_count(char *row);
 void	print_error(int error_code);
 void	clean_cells(t_cell **cells, int count);
@@ -188,94 +190,5 @@ int		handle_key(int keycode, t_fdf *f);
 void	draw_fdf(t_fdf *f);
 void	refresh_cells(t_fdf *f);
 void	apply_rotation(t_fdf *f, int keycode);
-int		ft_abs(int a);
-
-// # include <stdio.h>
-// # include "libft.h"
-// # include "mlx.h"
-// # include <errno.h>
-// # include <math.h>
-// # include <fcntl.h>
-
-// # define FILE_EXT	".fdf"
-
-// # define WIN_WIDTH	1080
-// # define WIN_HEIGHT	720
-
-// # define ISO_ANGLE	120
-// # define ROTT_ANGLE	0.1
-// # define OFFSET_X	WIN_WIDTH / 3
-// # define OFFSET_Y	WIN_HEIGHT / 3
-
-// # define SCALE		15
-// # define ZOOM_MAX	300
-// # define ZOOM_MIN	1
-// # define ZOOM_SPEED	1
-// # define ROTT_SPEED	5
-
-// # define KEY_PLUS	69
-// # define KEY_MINUS	78
-// # define KEY_ESCAPE	53
-// # define KEY_SPACE	49
-// # define KEY_UP		126
-// # define KEY_DOWN	125
-// # define KEY_LEFT	123
-// # define KEY_RIGHT	124
-
-// # define MOUSE_UP	4
-// # define MOUSE_DOWN	5
-
-// # define ERR_MSG_01	"ERROR: invalid argument count (Usage: ./fdf map.fdf).\n"
-// # define ERR_MSG_02	"ERROR: invalid file extension (Usage: ./fdf map.fdf).\n"
-// # define ERR_MSG_03	"ERROR: invalid file or file does not exist.\n"
-// # define ERR_MSG_04	"ERROR: invalid map: empty lines are not allowed.\n"
-// # define ERR_MSG_05	"ERROR: invalid map: map is empty.\n"
-// # define ERR_MSG_06	"ERROR: invalid map: failed to parse map.\n"
-// # define ERR_MSG_07	"ERROR: invalid map: failed to read map from file.\n"
-// # define ERR_MSG_08	"ERROR: invalid map: all rows should have same size.\n"
-// # define ERR_MSG_09	"ERROR: malloc() failed.\n"
-
-// typedef struct s_img
-// {
-// 	void	*img;
-// 	char	*addr;
-// 	int		bits_per_pixel;
-// 	int		line_length;
-// 	int		endian;
-// }				t_img;
-
-// typedef struct s_mlx
-// {
-// 	void	*mlx;
-// 	void	*win;
-// 	t_img	img;
-// }				t_mlx;
-
-// typedef struct s_row
-// {
-// 	int	*row;
-// 	int	row_size;
-// }				t_row;
-
-// typedef struct s_map
-// {
-// 	t_row	*rows;
-// 	int		row_count;
-// 	int		scale;
-// 	int		angle;
-// }				t_map;
-
-// typedef struct s_fdf
-// {
-// 	t_mlx	mlx;
-// 	t_map	map;
-// 	int		error;
-// }				t_fdf;
-
-// int		do_fdf(t_fdf *fdf, char *path);
-// int		parse_arg(t_fdf *fdf, char *arg);
-// void	print_error(int error_code);
-// void	clean_rows(t_row *rows, int size);
-// void	convert_3D_to_2D(int x, int y, int z, int *screen_x, int *screen_y, int scale, int angle);
 
 #endif

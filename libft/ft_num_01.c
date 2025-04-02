@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_03.c                                         :+:      :+:    :+:   */
+/*   ft_num_01.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 15:44:08 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/20 01:57:34 by bhajili          ###   ########.fr       */
+/*   Created: 2025/03/20 01:58:17 by bhajili           #+#    #+#             */
+/*   Updated: 2025/03/20 01:58:27 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isprime(int nb)
+int	ft_abs(int a)
 {
-	int	i;
-
-	i = 2;
-	if (nb < 2)
-		return (0);
-	while (i <= (nb / i))
-		if ((nb++ % i) == 0)
-			return (0);
-	return (1);
+	if (a > 0)
+		return (a);
+	return (-a);
 }
 
-int	ft_issquare(int nb)
+int	ft_max(int a, int b)
 {
-	if (nb == 0 || ft_sqrt(nb))
-		return (1);
-	return (0);
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+int	ft_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }

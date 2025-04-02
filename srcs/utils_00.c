@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_00.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 11:45:59 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/02 13:59:50 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
-
-int	ft_abs(int a)
-{
-	if (a > 0)
-		return (a);
-	return (-a);
-}
 
 void	refresh_cells(t_fdf *f)
 {
@@ -87,16 +80,6 @@ int	get_column_count(char *row)
 		else if (*row != '\0')
 			return (-1);
 	}
-	return (size);
-}
-
-size_t	ft_arrsize(char **arr)
-{
-	size_t	size;
-
-	size = 0;
-	while (arr[size])
-		size++;
 	return (size);
 }
 

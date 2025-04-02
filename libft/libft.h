@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 17:10:47 by bhajili           #+#    #+#             */
-/*   Updated: 2024/12/27 12:55:59 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/03/20 01:59:54 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ typedef struct s_arg
 	int		res;
 }				t_arg;
 
-size_t	ft_arrlen(t_cchr **arr, int size);
-void	ft_freearr(char **arr, int size);
+size_t	ft_arrlen(t_cchr **arr, size_t size);
+void	ft_freearr(char **arr, size_t size);
+size_t	ft_arrsize(char **arr);
 
 int		ft_isascii(int c);
 int		ft_isupper(int c);
@@ -99,6 +100,7 @@ int		ft_isalnums(t_cchr *str);
 int		ft_isduplicate(int c, t_cchr *pos, t_cchr *str);
 int		ft_isprime(int nb);
 int		ft_issquare(int nb);
+int		ft_issign(char c);
 
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
@@ -114,6 +116,9 @@ int		ft_sqrt(int nb);
 int		ft_factorial(int nb);
 int		ft_power(int nb, int power);
 int		ft_numlen(t_ll num, int base_len);
+int		ft_abs(int a);
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
 
 void	ft_putchar(char c);
 void	ft_putstr(char *s);

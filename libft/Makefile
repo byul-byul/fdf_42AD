@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+         #
+#    By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/25 10:36:41 by bhajili           #+#    #+#              #
-#    Updated: 2024/12/26 13:42:22 by bhajili          ###   ########.fr        #
+#    Updated: 2025/03/20 01:58:45 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,11 @@ SRCS	=	$(D_SRC)ft_arr_00.c \
 			$(D_SRC)ft_is_01.c \
 			$(D_SRC)ft_is_02.c \
 			$(D_SRC)ft_is_03.c \
+			$(D_SRC)ft_is_04.c \
 			$(D_SRC)ft_mem_00.c \
 			$(D_SRC)ft_mem_01.c \
 			$(D_SRC)ft_num_00.c \
+			$(D_SRC)ft_num_01.c \
 			$(D_SRC)ft_put_00.c \
 			$(D_SRC)ft_put_01.c \
 			$(D_SRC)ft_put_02.c \
