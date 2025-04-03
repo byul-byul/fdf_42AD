@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:39:33 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 06:11:04 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 12:49:10 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 static int	init_mlx(t_fdf *f)
 {
-	f->mlx.mlx = NULL;
-	f->mlx.win = NULL;
-	f->mlx.img = NULL;
 	f->mlx.mlx = mlx_init();
 	if (!f->mlx.mlx)
 		return (ERR_CODE_MLX_INIT);
@@ -38,7 +35,6 @@ static int	init_cell_rows(t_fdf *f)
 	int	i;
 
 	i = -1;
-	f->allocated_cellrow_count = 0;
 	while (++i < f->map->height)
 	{
 		f->map->cells[i] = (t_cell *)malloc(sizeof(t_cell) * f->map->width);
@@ -77,6 +73,10 @@ static int	init_map(t_fdf *f, char *path)
 	if (!f->map)
 		return (ERR_CODE_MEMORY_FAIL);
 	f->has_allocated_map = 1;
+	f->map->scale = DEFAULT_SCALE;
+	f->map->angle_z = DEFAULT_ANGLE;
+	f->map->angle_y = DEFAULT_ANGLE;
+	f->map->angle_x = DEFAULT_ANGLE;
 	f->map->file_path = path;
 	f->map->height = get_file_line_count(path);
 	if (0 >= f->map->height)
@@ -84,12 +84,21 @@ static int	init_map(t_fdf *f, char *path)
 	return (0);
 }
 
+void	pre_init_data(t_fdf *f)
+{
+	f->has_allocated_map = 0;
+	f->has_allocated_cells = 0;
+	f->allocated_cellrow_count = 0;
+	f->map = NULL;
+	f->mlx.mlx = NULL;
+	f->mlx.win = NULL;
+	f->mlx.img = NULL;
+}
+
 int	init_data(t_fdf *f, char *path)
 {
 	int	error_code;
 
-	f->has_allocated_map = 0;
-	f->has_allocated_cells = 0;
 	f->projection.type = ISOMETRIC;
 	error_code = init_map(f, path);
 	if (0 == error_code)

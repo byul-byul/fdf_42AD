@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 16:12:55 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 11:42:48 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 09:10:07 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static int	parse_color(char *str)
 	char	**num_color;
 	int		color;
 
-	// color = DEFAULT_COLOR;
-	color = 0;
+	color = DEFAULT_COLOR;
 	num_color = ft_split(str, ',');
 	if (num_color)
 		if (2 == ft_arrsize(num_color))

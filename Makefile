@@ -6,7 +6,7 @@
 #    By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 12:10:48 by bhajili           #+#    #+#              #
-#    Updated: 2025/03/29 15:32:24 by bhajili          ###   ########.fr        #
+#    Updated: 2025/04/03 12:34:36 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS    =   $(D_SRC)main.c \
 			$(D_SRC)event_handler.c \
 			$(D_SRC)rotation.c \
 			$(D_SRC)cleaner.c \
+			$(D_SRC)render.c \
 			$(D_SRC)utils_00.c
 
 OBJS    =   $(SRCS:.c=.o)

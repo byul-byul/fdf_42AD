@@ -3,41 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   event_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bhajili <bhajili@student.42abudhabi.ae>    +#+  +:+       +#+        */
+/*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:58:06 by bhajili           #+#    #+#             */
-/*   Updated: 2025/03/19 12:07:58 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 15:36:56 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-static void	refresh_image(t_fdf *f)
+void	apply_zoom(t_fdf *f, int keycode)
 {
-	mlx_clear_window(f->mlx.mlx, f->mlx.win);
-	if (f->mlx.img)
-		mlx_destroy_image(f->mlx.mlx, f->mlx.img);
-	f->mlx.img = mlx_new_image(f->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
-	f->mlx.addr = mlx_get_data_addr(f->mlx.img, &f->mlx.bpp, \
-					&f->mlx.line_length, &f->mlx.endian);
+	if (PLUS_BUTTON_CODE == keycode)
+		f->map->scale += ZOOM_STEP;
+	if (MINUS_BUTTON_CODE == keycode)
+		f->map->scale -= ZOOM_STEP;
+	apply_projection(f);
 }
 
-static void	handle_projection_change(t_fdf *f)
+static void	handle_zoom_event(t_fdf *f, int keycode)
+{
+	apply_zoom(f, keycode);
+	draw_fdf(f);
+}
+
+static void	handle_projection_event(t_fdf *f)
 {
 	if (f->projection.type == ISOMETRIC)
 		f->projection.type = PARALLEL;
 	else if (f->projection.type == PARALLEL)
-		f->projection.type = CONIC;
-	else if (f->projection.type == CONIC)
-		f->projection.type = CAVALIER;
-	else if (f->projection.type == CAVALIER)
-		f->projection.type = CABINET;
-	else if (f->projection.type == CABINET)
-		f->projection.type = PERSPECTIVE;
-	else if (f->projection.type == PERSPECTIVE)
 		f->projection.type = ISOMETRIC;
-	refresh_image(f);
+	//else if (f->projection.type == CONIC)
+	//	f->projection.type = CAVALIER;
+	//else if (f->projection.type == CAVALIER)
+	//	f->projection.type = CABINET;
+	//else if (f->projection.type == CABINET)
+	//	f->projection.type = PERSPECTIVE;
+	//else if (f->projection.type == PERSPECTIVE)
+	//	f->projection.type = ISOMETRIC;
+	//refresh_image(f);
 	apply_projection(f);
+	draw_fdf(f);
+}
+
+static int	is_rotation_event(int keycode)
+{
+	if (W_BUTTON_CODE == keycode)
+		return (1);
+	if (S_BUTTON_CODE == keycode)
+		return (1);
+	if (D_BUTTON_CODE == keycode)
+		return (1);
+	if (A_BUTTON_CODE == keycode)
+		return (1);
+	if (Q_BUTTON_CODE == keycode)
+		return (1);
+	if (E_BUTTON_CODE == keycode)
+		return (1);
+	return (0);
+}
+
+static void	handle_rotation_event(t_fdf *f, int keycode)
+{
+	apply_rotation(f, keycode);
 	draw_fdf(f);
 }
 
@@ -47,38 +75,17 @@ static void	handle_escape_event(t_fdf *f)
 	exit(0);
 }
 
-static int	is_rotation_event(int keycode)
-{
-	if (UP_BUTTON_CODE == keycode)
-		return (1);
-	if (RIGHT_BUTTON_CODE == keycode)
-		return (1);
-	if (DOWN_BUTTON_CODE == keycode)
-		return (1);
-	if (LEFT_BUTTON_CODE == keycode)
-		return (1);
-	if (COMMA_BUTTON_CODE == keycode)
-		return (1);
-	if (DOT_BUTTON_CODE == keycode)
-		return (1);
-	return (0);
-}
-
-static void	handle_rotation(t_fdf *f, int keycode)
-{
-	refresh_image(f);
-	apply_rotation(f, keycode);
-	draw_fdf(f);
-}
-
-int	handle_key(int keycode, t_fdf *f)
+int	handle_event(int keycode, t_fdf *f)
 {
 	printf("keycode = %d\n", keycode);
 	if (ESC_BUTTON_CODE == keycode)
 		handle_escape_event(f);
 	else if (PROJ_BUTTON_CODE == keycode)
-		handle_projection_change(f);
+		handle_projection_event(f);
 	else if (is_rotation_event(keycode))
-		handle_rotation(f, keycode);
+		handle_rotation_event(f, keycode);
+	else if (PLUS_BUTTON_CODE == keycode ||
+			MINUS_BUTTON_CODE == keycode)
+		handle_zoom_event(f, keycode);
 	return (0);
 }
