@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 19:18:56 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 20:08:55 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 20:59:13 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	apply_offset(t_fdf *f)
 		x = -1;
 		while (++x < f->map->width)
 		{
-			f->map->cells[y][x].x += f->map->offset_x;
-			f->map->cells[y][x].y += f->map->offset_y;
+			f->map->cells[y][x].x += \
+				f->map->offset_x - f->map->center_x / 2 * f->map->scale;
+			f->map->cells[y][x].y += \
+				f->map->offset_y - f->map->center_y / 2 * f->map->scale;
 		}
 	}
 }

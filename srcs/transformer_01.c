@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 19:18:56 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 20:09:23 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 20:52:33 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ void	apply_gradient(t_fdf *f)
 void	apply_reset(t_fdf *f)
 {
 	f->map->scale = DEFAULT_SCALE;
-	f->map->offset_x = DEFAULT_OFFSET;
-	f->map->offset_y = DEFAULT_OFFSET;
+	f->map->offset_x = WIN_WIDTH / 2;
+	f->map->offset_y = WIN_HEIGHT / 2;
+	f->map->offset_z = DEFAULT_OFFSET;
 	f->map->angle_x = DEFAULT_ANGLE;
 	f->map->angle_y = DEFAULT_ANGLE;
 	f->map->angle_z = DEFAULT_ANGLE;

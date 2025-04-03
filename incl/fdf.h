@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 20:09:43 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 20:49:05 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 # define DEFAULT_ANGLE			0.5
 # define DEFAULT_SCALE			20
-# define DEFAULT_OFFSET			WIN_HEIGHT / 3
+# define DEFAULT_OFFSET			0
 # define ZOOM_STEP				1
 # define ROTATE_STEP			0.01
 # define TRANSLATION_STEP		5
