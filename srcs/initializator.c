@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:39:33 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 12:49:10 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 16:54:51 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ static int	init_map(t_fdf *f, char *path)
 	f->map->angle_z = DEFAULT_ANGLE;
 	f->map->angle_y = DEFAULT_ANGLE;
 	f->map->angle_x = DEFAULT_ANGLE;
+	f->map->offset_x = DEFAULT_OFFSET;
+	f->map->offset_y = DEFAULT_OFFSET;
+	f->map->offset_z = DEFAULT_OFFSET;
 	f->map->file_path = path;
 	f->map->height = get_file_line_count(path);
 	if (0 >= f->map->height)

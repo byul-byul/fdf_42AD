@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 15:38:19 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 19:34:17 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,12 @@
 
 # define DEFAULT_ANGLE			0.5
 # define DEFAULT_SCALE			20
+# define DEFAULT_OFFSET			WIN_HEIGHT / 3
 # define ZOOM_STEP				1
 # define ROTATE_STEP			0.01
+# define TRANSLATION_STEP		5
 # define POSITIVE_ROTATION		1
 # define NEGATIVE_ROTATION		0
-//# define ISO_ANGLE_X			0.5
-//# define ISO_ANGLE_Y			0.5
-# define ROT_ANGLE				2
-# define OFFSET_X				WIN_HEIGHT / 3
-# define OFFSET_Y				WIN_HEIGHT / 3
-# define OFFSET_Z				WIN_HEIGHT / 3
-//# define SCALE					20
-//# define SCALE_Z				42
 # define CONIC_FACTOR			0.1
 # define CAVALIER_FACTOR		0.5
 # define CABINET_FACTOR			0.25
@@ -61,6 +55,7 @@
 
 # define ESC_BUTTON_CODE		53
 # define PROJ_BUTTON_CODE		35
+# define RESET_BUTTON_CODE		15
 # define UP_BUTTON_CODE			126
 # define RIGHT_BUTTON_CODE		124
 # define DOWN_BUTTON_CODE		125
@@ -212,17 +207,40 @@ int		get_column_count(char *row);
 void	print_error(int error_code);
 void	clean_cells(t_cell **cells, int count);
 void	apply_projection(t_fdf *f);
-void	define_map_min_max(t_fdf *f);
-void	apply_gradient(t_fdf *f);
+//void	define_map_min_max(t_fdf *f);
+
 int		handle_event(int keycode, t_fdf *f);
-void	draw_fdf(t_fdf *f);
-void	refresh_cells(t_fdf *f);
+void	handle_escape_event(t_fdf *f);
+void	handle_projection_event(t_fdf *f);
+void	handle_reset_event(t_fdf *f);
+void	handle_zoom_event(t_fdf *f, int keycode);
+void	handle_translation_event(t_fdf *f, int keycode);
+void	handle_rotation_event(t_fdf *f, int keycode);
+
+void	apply_gradient(t_fdf *f);
+void	apply_offset(t_fdf *f);
+void	apply_zoom(t_fdf *f, int keycode);
+void	apply_translation(t_fdf *f, int keycode);
 void	apply_rotation(t_fdf *f, int keycode);
+void	apply_projection(t_fdf *f);
+
+void	parallel_projection(t_fdf *f);
+void	isometric_projection(t_fdf *f);
+
+void	rotate_x(t_fdf *f, int type);
+void	rotate_y(t_fdf *f, int type);
+void	rotate_z(t_fdf *f, int type);
+
+int		interpolate_color(double ratio);
+
+void	draw_fdf(t_fdf *f);
+//void	refresh_cells(t_fdf *f);
 //void	draw_line(t_fdf *f, t_cell a, t_cell b);
 void	pre_init_data(t_fdf *f);
+void	define_map_constants(t_fdf *f);
 //void	refresh_image(t_fdf *f);
-void	define_map_center(t_fdf *f);
-void	define_offset(t_fdf *f);
+//void	define_map_center(t_fdf *f);
+//void	define_offset(t_fdf *f);
 //void	apply_scale(t_fdf *f);
 
 #endif

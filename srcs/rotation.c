@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:58:24 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 15:27:56 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 19:34:04 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@
 //    }
 //}
 
-static void	rotate_x(t_fdf *f, int type)
+void	rotate_x(t_fdf *f, int type)
 {
 	if (type)
 		f->map->angle_x += ROTATE_STEP;
@@ -110,7 +110,7 @@ static void	rotate_x(t_fdf *f, int type)
 	apply_projection(f);
 }
 
-static void	rotate_y(t_fdf *f, int type)
+void	rotate_y(t_fdf *f, int type)
 {
 	if (type)
 		f->map->angle_y += ROTATE_STEP;
@@ -119,27 +119,11 @@ static void	rotate_y(t_fdf *f, int type)
 	apply_projection(f);
 }
 
-static void	rotate_z(t_fdf *f, int type)
+void	rotate_z(t_fdf *f, int type)
 {
 	if (type)
 		f->map->angle_z += ROTATE_STEP;
 	else
 		f->map->angle_z -= ROTATE_STEP;
 	apply_projection(f);
-}
-
-void	apply_rotation(t_fdf *f, int keycode)
-{
-	if (keycode == W_BUTTON_CODE)
-		rotate_x(f, POSITIVE_ROTATION);
-	else if (keycode == S_BUTTON_CODE)
-		rotate_x(f, NEGATIVE_ROTATION);
-	else if (keycode == D_BUTTON_CODE)
-		rotate_y(f, POSITIVE_ROTATION);
-	else if (keycode == A_BUTTON_CODE)
-		rotate_y(f, NEGATIVE_ROTATION);
-	else if (keycode == Q_BUTTON_CODE)
-		rotate_z(f, POSITIVE_ROTATION);
-	else if (keycode == E_BUTTON_CODE)
-		rotate_z(f, NEGATIVE_ROTATION);
 }

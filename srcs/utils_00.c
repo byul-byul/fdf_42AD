@@ -6,43 +6,13 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 12:27:18 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 19:36:01 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
 
-void	refresh_cells(t_fdf *f)
-{
-	int	y;
-	int	x;
-
-	y = -1;
-	while (++y < f->map->height)
-	{
-		x = -1;
-		while (++x < f->map->width)
-		{
-			f->map->cells[y][x].x = f->map->cells[y][x].original_x;
-			f->map->cells[y][x].y = f->map->cells[y][x].original_y;
-		}
-	}
-}
-
-void	define_offset(t_fdf *f)
-{
-	f->map->offset_x = WIN_WIDTH / 2 - f->map->center_x;
-	f->map->offset_y = WIN_HEIGHT / 2 - f->map->center_y;
-}
-
-void	define_map_center(t_fdf *f)
-{
-	f->map->center_z = f->map->max_z - f->map->min_z;
-	f->map->center_y = f->map->max_y - f->map->min_y;
-	f->map->center_x = f->map->max_x - f->map->min_x;
-}
-
-void	define_map_min_max(t_fdf *f)
+void	define_map_constants(t_fdf *f)
 {
 	int	x;
 	int	y;
@@ -65,6 +35,9 @@ void	define_map_min_max(t_fdf *f)
 				f->map->max_z = f->map->cells[y][x].z;
 		}
 	}
+	f->map->center_z = f->map->max_z - f->map->min_z;
+	f->map->center_y = f->map->max_y - f->map->min_y;
+	f->map->center_x = f->map->max_x - f->map->min_x;
 }
 
 int	get_column_count(char *row)
