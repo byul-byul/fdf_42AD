@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:40:10 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 19:20:17 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 19:57:42 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	parallel_projection(t_fdf *f)
 		x = -1;
 		while (++x < f->map->width)
 		{
-			f->map->cells[y][x].x = f->map->cells[y][x].original_x * f->map->scale;
-			f->map->cells[y][x].y = f->map->cells[y][x].original_y * f->map->scale;
+			f->map->cells[y][x].x = \
+				f->map->cells[y][x].original_x * f->map->scale;
+			f->map->cells[y][x].y = \
+				f->map->cells[y][x].original_y * f->map->scale;
 		}
 	}
 }

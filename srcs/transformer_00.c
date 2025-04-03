@@ -6,11 +6,48 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 19:18:56 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 19:31:30 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 20:08:55 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+void	apply_offset(t_fdf *f)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < f->map->height)
+	{
+		x = -1;
+		while (++x < f->map->width)
+		{
+			f->map->cells[y][x].x += f->map->offset_x;
+			f->map->cells[y][x].y += f->map->offset_y;
+		}
+	}
+}
+
+void	apply_zoom(t_fdf *f, int keycode)
+{
+	if (PLUS_BUTTON_CODE == keycode)
+		f->map->scale += ZOOM_STEP;
+	if (MINUS_BUTTON_CODE == keycode)
+		f->map->scale -= ZOOM_STEP;
+}
+
+void	apply_translation(t_fdf *f, int keycode)
+{
+	if (UP_BUTTON_CODE == keycode)
+		f->map->offset_y -= TRANSLATION_STEP;
+	if (DOWN_BUTTON_CODE == keycode)
+		f->map->offset_y += TRANSLATION_STEP;
+	if (RIGHT_BUTTON_CODE == keycode)
+		f->map->offset_x += TRANSLATION_STEP;
+	if (LEFT_BUTTON_CODE == keycode)
+		f->map->offset_x -= TRANSLATION_STEP;
+}
 
 void	apply_rotation(t_fdf *f, int keycode)
 {
@@ -34,30 +71,4 @@ void	apply_projection(t_fdf *f)
 		isometric_projection(f);
 	else if (f->projection.type == PARALLEL)
 		parallel_projection(f);
-	apply_offset(f);
-}
-
-void	apply_gradient(t_fdf *f)
-{
-	int		x;
-	int		y;
-	double	ratio;
-
-	y = -1;
-	while (++y < f->map->height)
-	{
-		x = -1;
-		while (++x < f->map->width)
-		{
-			if (f->map->cells[y][x].color != 0)
-				continue ;
-			if (f->map->max_z == f->map->min_z)
-				ratio = 0;
-			else
-				ratio = (double)(f->map->cells[y][x].z - f->map->min_z) / \
-						(f->map->max_z - f->map->min_z);
-			f->map->cells[y][x].color = \
-					interpolate_color(ratio);
-		}
-	}
 }

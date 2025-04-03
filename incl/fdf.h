@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 19:34:17 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/03 20:09:43 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ int		get_file_line_count(char *path);
 int		get_column_count(char *row);
 void	print_error(int error_code);
 void	clean_cells(t_cell **cells, int count);
-void	apply_projection(t_fdf *f);
+//void	apply_projection(t_fdf *f);
 //void	define_map_min_max(t_fdf *f);
 
 int		handle_event(int keycode, t_fdf *f);
@@ -223,6 +223,7 @@ void	apply_zoom(t_fdf *f, int keycode);
 void	apply_translation(t_fdf *f, int keycode);
 void	apply_rotation(t_fdf *f, int keycode);
 void	apply_projection(t_fdf *f);
+void	apply_reset(t_fdf *f);
 
 void	parallel_projection(t_fdf *f);
 void	isometric_projection(t_fdf *f);
