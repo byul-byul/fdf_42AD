@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:58:06 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 16:38:54 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 18:31:04 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	handle_projection_event(t_fdf *f)
 	if (f->projection.type == ISOMETRIC)
 		f->projection.type = PARALLEL;
 	else if (f->projection.type == PARALLEL)
+		f->projection.type = CONIC;
+	else if (f->projection.type == CONIC)
+		f->projection.type = PERSPECTIVE;
+	else if (f->projection.type == PERSPECTIVE)
 		f->projection.type = ISOMETRIC;
 	apply_projection(f);
 	apply_offset(f);

@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 19:18:56 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 16:17:10 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 18:30:37 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,8 @@ void	apply_projection(t_fdf *f)
 		isometric_projection(f);
 	else if (f->projection.type == PARALLEL)
 		parallel_projection(f);
+	else if (f->projection.type == CONIC)
+		conic_projection(f);
+	else if (f->projection.type == PERSPECTIVE)
+		perspective_projection(f);
 }

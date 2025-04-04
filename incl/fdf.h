@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 16:39:26 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 18:33:49 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,18 @@
 # define DEFAULT_ANGLE			0.5
 # define DEFAULT_SCALE			20
 # define DEFAULT_OFFSET			0
+
 # define ZOOM_STEP				1
 # define ROTATE_STEP			0.01
-# define TRANSLATION_STEP		5
+# define TRANSLATION_STEP		10
 # define STRAIGHTFORWARD_STEP	1
+
 # define POSITIVE_ROTATION		1
 # define NEGATIVE_ROTATION		0
-# define CONIC_FACTOR			0.1
-# define CAVALIER_FACTOR		0.5
-# define CABINET_FACTOR			0.25
-# define FOCAL_LENGTH			800
+
+# define CONIC_FACTOR_01		0.1
+# define CONIC_FACTOR_02		1.0
+# define FOCAL_LEN				1400
 
 # define FILE_EXT				".fdf"
 # define HEX_PREFIX				"0x"
@@ -133,17 +135,6 @@ typedef struct s_map
 	t_cell	**cells;
 }				t_map;
 
-//typedef struct s_camera
-//{
-//	double	zoom;
-//	double	angle_x;
-//	double	angle_y;
-//	double	angle_z;
-//	int		offset_x;
-//	int		offset_y;
-//	double	height_mod;
-//}				t_camera;
-
 typedef struct s_mlx
 {
 	void	*mlx;
@@ -194,7 +185,6 @@ typedef struct s_fdf
 	int				has_allocated_cells;
 	int				allocated_cellrow_count;
 	t_map			*map;
-	//t_camera		camera;
 	t_projection	projection;
 	t_mlx			mlx;
 }				t_fdf;
@@ -209,8 +199,6 @@ int		get_file_line_count(char *path);
 int		get_column_count(char *row);
 void	print_error(int error_code);
 void	clean_cells(t_cell **cells, int count);
-//void	apply_projection(t_fdf *f);
-//void	define_map_min_max(t_fdf *f);
 
 int		handle_event(int keycode, t_fdf *f);
 void	handle_escape_event(t_fdf *f);
@@ -232,6 +220,8 @@ void	apply_straightforward(t_fdf *f, int keycode);
 
 void	parallel_projection(t_fdf *f);
 void	isometric_projection(t_fdf *f);
+void	conic_projection(t_fdf *f);
+void	perspective_projection(t_fdf *f);
 
 void	rotate_x(t_fdf *f, int type);
 void	rotate_y(t_fdf *f, int type);
@@ -240,14 +230,8 @@ void	rotate_z(t_fdf *f, int type);
 int		interpolate_color(double ratio);
 
 void	draw_fdf(t_fdf *f);
-//void	refresh_cells(t_fdf *f);
-//void	draw_line(t_fdf *f, t_cell a, t_cell b);
 void	pre_init_data(t_fdf *f);
 void	define_map_constants(t_fdf *f);
 void	define_offset(t_fdf *f);
-//void	refresh_image(t_fdf *f);
-//void	define_map_center(t_fdf *f);
-//void	define_offset(t_fdf *f);
-//void	apply_scale(t_fdf *f);
 
 #endif
