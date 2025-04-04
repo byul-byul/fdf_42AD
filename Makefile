@@ -6,7 +6,7 @@
 #    By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/28 12:10:48 by bhajili           #+#    #+#              #
-#    Updated: 2025/04/04 19:35:03 by bhajili          ###   ########.fr        #
+#    Updated: 2025/04/04 20:15:21 by bhajili          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRCS    =   $(D_SRC)main.c \
 			$(D_SRC)rotation.c \
 			$(D_SRC)cleaner.c \
 			$(D_SRC)render.c \
-			$(D_SRC)utils_00.c
+			$(D_SRC)utils_00.c \
+			$(D_SRC)utils_01.c
 
 OBJS    =   $(SRCS:.c=.o)
 
@@ -42,12 +43,12 @@ OBJS    =   $(SRCS:.c=.o)
 all:    $(NAME)
 
 # linking with dependencies on object files
-$(NAME): $(OBJS) libft/libft.a minilibx/libmlx.a
-	$(CC) -o $@ $^ -Llibft -lft  -Lminilibx -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
+$(NAME): $(OBJS) libft/libft.a minilibx-macOS/libmlx.a
+	$(CC) -o $@ $^ -Llibft -lft  -Lminilibx-macOS -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
 
 # Library rule to build minilibx if needed
-minilibx/libmlx.a:
-	make -C minilibx
+minilibx-macOS/libmlx.a:
+	make -C minilibx-macOS
 
 # Library rule to build libft if needed
 libft/libft.a:
@@ -56,11 +57,11 @@ libft/libft.a:
 clean:
 	rm -f $(OBJS)
 	make -C libft clean
-	make -C minilibx clean
+	make -C minilibx-macOS clean
 
 fclean: clean
-	rm -f libft/libft.a minilibx/libmlx.a $(NAME)
+	rm -f libft/libft.a minilibx-macOS/libmlx.a $(NAME)
 
 re: fclean all
 
-.PHONY: all libft clean fclean re bonus
+.PHONY: all libft clean fclean re

@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 18:33:49 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 20:00:51 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 # include <fcntl.h>
 # include <string.h>
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <errno.h>
+//# include <unistd.h>
+//# include <stdlib.h>
+//# include <stdio.h>
+//# include <errno.h>
 
 # define TRUE					1
 # define FALSE					0
