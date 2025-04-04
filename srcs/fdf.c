@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 12:08:42 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 20:56:04 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 16:11:22 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	do_fdf(t_fdf *f)
 {
 	define_map_constants(f);
+	define_offset(f);
 	apply_gradient(f);
 	apply_projection(f);
 	apply_offset(f);

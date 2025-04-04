@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:58:06 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 19:24:02 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 16:38:42 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ static int	is_zoom_event(int keycode)
 	return (0);
 }
 
+static int	is_straightforward_event(int keycode)
+{
+	if (H_BUTTON_CODE == keycode)
+		return (1);
+	if (L_BUTTON_CODE == keycode)
+		return (1);
+	return (0);
+}
+
 int	handle_event(int keycode, t_fdf *f)
 {
 	printf("keycode = %d\n", keycode);
@@ -66,6 +75,8 @@ int	handle_event(int keycode, t_fdf *f)
 		handle_translation_event(f, keycode);
 	else if (is_zoom_event(keycode))
 		handle_zoom_event(f, keycode);
+	else if (is_straightforward_event(keycode))
+		handle_straightforward_event(f, keycode);
 	draw_fdf(f);
 	return (0);
 }

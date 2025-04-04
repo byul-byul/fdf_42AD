@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 20:49:05 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 16:39:26 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define ZOOM_STEP				1
 # define ROTATE_STEP			0.01
 # define TRANSLATION_STEP		5
+# define STRAIGHTFORWARD_STEP	1
 # define POSITIVE_ROTATION		1
 # define NEGATIVE_ROTATION		0
 # define CONIC_FACTOR			0.1
@@ -66,6 +67,8 @@
 # define A_BUTTON_CODE			0
 # define Q_BUTTON_CODE			12
 # define E_BUTTON_CODE			14
+# define H_BUTTON_CODE			4
+# define L_BUTTON_CODE			37
 # define COMMA_BUTTON_CODE		43
 # define DOT_BUTTON_CODE		47
 # define PLUS_BUTTON_CODE		69
@@ -216,6 +219,7 @@ void	handle_reset_event(t_fdf *f);
 void	handle_zoom_event(t_fdf *f, int keycode);
 void	handle_translation_event(t_fdf *f, int keycode);
 void	handle_rotation_event(t_fdf *f, int keycode);
+void	handle_straightforward_event(t_fdf *f, int keycode);
 
 void	apply_gradient(t_fdf *f);
 void	apply_offset(t_fdf *f);
@@ -224,6 +228,7 @@ void	apply_translation(t_fdf *f, int keycode);
 void	apply_rotation(t_fdf *f, int keycode);
 void	apply_projection(t_fdf *f);
 void	apply_reset(t_fdf *f);
+void	apply_straightforward(t_fdf *f, int keycode);
 
 void	parallel_projection(t_fdf *f);
 void	isometric_projection(t_fdf *f);
@@ -239,6 +244,7 @@ void	draw_fdf(t_fdf *f);
 //void	draw_line(t_fdf *f, t_cell a, t_cell b);
 void	pre_init_data(t_fdf *f);
 void	define_map_constants(t_fdf *f);
+void	define_offset(t_fdf *f);
 //void	refresh_image(t_fdf *f);
 //void	define_map_center(t_fdf *f);
 //void	define_offset(t_fdf *f);

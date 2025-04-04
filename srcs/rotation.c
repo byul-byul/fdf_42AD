@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:58:24 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 19:34:04 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 16:23:08 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ void	rotate_x(t_fdf *f, int type)
 		f->map->angle_x += ROTATE_STEP;
 	else
 		f->map->angle_x -= ROTATE_STEP;
-	apply_projection(f);
 }
 
 void	rotate_y(t_fdf *f, int type)
@@ -116,7 +115,6 @@ void	rotate_y(t_fdf *f, int type)
 		f->map->angle_y += ROTATE_STEP;
 	else
 		f->map->angle_y -= ROTATE_STEP;
-	apply_projection(f);
 }
 
 void	rotate_z(t_fdf *f, int type)
@@ -125,5 +123,4 @@ void	rotate_z(t_fdf *f, int type)
 		f->map->angle_z += ROTATE_STEP;
 	else
 		f->map->angle_z -= ROTATE_STEP;
-	apply_projection(f);
 }

@@ -6,11 +6,18 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/03 19:36:01 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 16:13:31 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+void	define_offset(t_fdf *f)
+{
+	f->map->offset_x -= f->map->center_x / 2 * f->map->scale;
+	f->map->offset_y -= f->map->center_y / 2 * f->map->scale;
+	f->map->offset_z -= f->map->center_z / 2 * f->map->scale;
+}
 
 void	define_map_constants(t_fdf *f)
 {
