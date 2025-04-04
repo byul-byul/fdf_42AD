@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:40:10 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 18:29:52 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 19:30:53 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	perspective_projection(t_fdf *f)
 	int		x;
 	int		y;
 	double	scale_factor;
-
 
 	y = -1;
 	while (++y < f->map->height)
@@ -41,7 +40,6 @@ void	conic_projection(t_fdf *f)
 	int		x;
 	int		y;
 	double	scale_factor;
-
 
 	y = -1;
 	while (++y < f->map->height)

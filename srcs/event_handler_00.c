@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 11:58:06 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 16:38:42 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 19:35:59 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int	is_straightforward_event(int keycode)
 
 int	handle_event(int keycode, t_fdf *f)
 {
-	printf("keycode = %d\n", keycode);
 	if (ESC_BUTTON_CODE == keycode)
 		handle_escape_event(f);
 	else if (PROJ_BUTTON_CODE == keycode)
