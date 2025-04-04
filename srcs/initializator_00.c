@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 20:39:33 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 19:34:32 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 20:22:38 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static int	init_map(t_fdf *f, char *path)
 	f->map->offset_x = WIN_WIDTH / 2;
 	f->map->offset_y = WIN_HEIGHT / 2;
 	f->map->offset_z = DEFAULT_OFFSET;
-	f->map->file_path = path;
 	f->map->height = get_file_line_count(path);
 	if (0 >= f->map->height)
 		return (ERR_CODE_INVALID_MAP_H);

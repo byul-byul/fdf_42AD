@@ -6,11 +6,21 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 19:57:59 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 19:43:21 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 20:33:42 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incl/fdf.h"
+
+static void	handle_color(char **row)
+{
+	while (**row == ',')
+		(*row)++;
+	if (ft_strnstr(*row, "0x", 2))
+		*row += 2;
+	while (ft_isxdigit(**row))
+		(*row)++;
+}
 
 int	get_column_count(char *row)
 {
@@ -28,14 +38,7 @@ int	get_column_count(char *row)
 			while (ft_isdigit(*row))
 				row++;
 			if (*row == ',')
-			{
-				while (*row == ',')
-					row++;
-				if (ft_strnstr(row, "0x", 2))
-					row += 2;
-				while (ft_isxdigit(*row))
-					row++;
-			}
+				handle_color(&row);
 			size++;
 		}
 		else if (*row != '\0')
@@ -44,32 +47,36 @@ int	get_column_count(char *row)
 	return (size);
 }
 
+static int	count_lines_in_buffer(char *buffer, int bytes_read)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (++i < bytes_read)
+		if (buffer[i] == '\n')
+			count++;
+	return (count);
+}
+
 int	get_file_line_count(char *path)
 {
 	int		fd;
+	int		count;
 	char	buffer[BUFFER_SIZE];
 	ssize_t	bytes_read;
-	int		count;
-	char	last_char;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (-1);
 	count = 0;
-	last_char = '\n';
 	bytes_read = 1;
 	while (bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		for (int i = 0; i < bytes_read; i++)
-		{
-			if (buffer[i] == '\n')
-				count++;
-			last_char = buffer[i];
-		}
+		count += count_lines_in_buffer(buffer, bytes_read);
 	}
-	if (last_char != '\n')
-		count++;
 	close(fd);
 	return (count);
 }

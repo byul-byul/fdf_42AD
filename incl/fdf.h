@@ -6,7 +6,7 @@
 /*   By: bhajili <bhajili@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/28 11:50:30 by bhajili           #+#    #+#             */
-/*   Updated: 2025/04/04 20:00:51 by bhajili          ###   ########.fr       */
+/*   Updated: 2025/04/04 20:22:10 by bhajili          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,6 @@ typedef struct s_map
 	double	angle_z;
 	double	angle_y;
 	double	angle_x;
-	char	*file_path;
 	t_cell	**cells;
 }				t_map;
 
